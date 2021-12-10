@@ -10,8 +10,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session')
 const MongoStore = require('connect-mongo');
 
-
-const mongoString = "mongodb+srv://ziling:1234@cluster0.hgsqy.mongodb.net/CS5610_Job?retryWrites=true&w=majority";
+const mongoString = "mongodb://127.0.0.1/job";
 mongoose.connect(mongoString, { useNewUrlParser: true });
 
 const mongoDB = mongoose.connection;

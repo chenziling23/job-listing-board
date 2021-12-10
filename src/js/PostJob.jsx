@@ -1,5 +1,5 @@
 import React,{useState} from "react";
-import './PostJob.css';
+import "../css/PostJob.css";
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import { useNavigate } from 'react-router';

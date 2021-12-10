@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, {useState} from 'react';
-import { Link } from 'react-router-dom';
-import './LogIn.css';
+import Nav from './Nav';
+import "../css/LogIn.css";
 import { useNavigate } from 'react-router'; 
 
 
@@ -18,7 +18,7 @@ function LogIn(props) {
         axios.post('http://localhost:8000/api/users/login', userData)
                 .then((loginResponse) => {
                     // console.log(loginResponse);
-                    navigate('/userLogged');
+                    navigate('/userLogged', {state: loginResponse.data.username});
                 })
                 .catch(error => console.log(error));    
     }
@@ -26,15 +26,7 @@ function LogIn(props) {
 
     return (
         <div className="page">
-            <div>
-                <Link to="/">
-                <button>Home</button>
-                </Link>
-                <Link to="/register">
-                <button>Register</button>
-                </Link>
-            </div>
-
+        <Nav type = "login"/>
         <div className = "contain">
             <div className="job-finder">
                 JobFinder

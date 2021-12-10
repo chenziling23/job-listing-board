@@ -1,42 +1,38 @@
 import axios from 'axios';
 import React, {useState} from 'react'
-import { Link } from 'react-router-dom';
-import './LogIn.css';
-import { useNavigate } from 'react-router'; 
+import Nav from "./Nav";
+import "../css/LogIn.css";
+import { useLocation, useNavigate } from 'react-router'; 
 
 
-function Register(props) {
-
+function Register(state) {
     const [userData, setUserData] = useState({
         username: '',
         password: '',
         verifyPassword: '',
     });
 
+    // const [loggedInName, setLoggedInName] = useState('');
+
+   
+    // function displayUsername() {
+    //     axios.get("localhost:8000/api/jobs/get/whoIsLoggedIn")
+    //     .then(response => setLoggedInName(response))
+    //     .catch(error => console.log(error));
+    // }
     
     const navigate = useNavigate();
     function tryRegister () {
         axios.post('http://localhost:8000/api/users/register', userData)
                 .then((registerResponse) => {
-                    console.log(registerResponse);
-                    navigate('/');
-                })
+                    navigate('/userLogged', {state: registerResponse.data.username});
+                    })
                 .catch(error => console.log(error));    
     }
 
     return (
         <div className="page">
-            <div>
-                <Link to="/">
-                <button>Home</button>
-                </Link>
-                <Link to="/login">
-                <button>Log In</button>
-                </Link>
-                <Link to="/favorite">
-                <button>Favorite</button>
-                </Link>
-            </div>
+        <Nav type = "register"/> 
 
         <div className = "contain">
             <div className="job-finder">
@@ -80,7 +76,6 @@ function Register(props) {
                 })
             }} type='password' />
             </div>
-
             <button onClick={tryRegister}>Register</button>
 
         </div>

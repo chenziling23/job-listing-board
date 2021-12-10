@@ -70,3 +70,12 @@ div {
     display: flex;
     align-items: right;
 }
+
+nav {
+    width: 100%;
+}
+
+#onejob {
+    border: 1px solid black;
+    border-radius: 5%;
+}
