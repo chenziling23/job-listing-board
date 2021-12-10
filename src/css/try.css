@@ -1,0 +1,4 @@
+#basic-navbar-nav {
+    display: flex;
+    flex-direction: row;
+}

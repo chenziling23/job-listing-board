@@ -1,8 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
 import axios from 'axios';
-import './HomePage.css';
-import { Link } from 'react-router-dom';
+import "../css/HomePage.css";
+import Nav from "./Nav";
 import {useNavigate} from 'react-router';
 
 
@@ -39,23 +39,14 @@ function HomePage() {
     );
   })
 
-  console.log("job: ");
-  console.log(job);
-  console.log("jobs: ");
-  console.log(jobs);
+  // console.log("job: ");
+  // console.log(job);
+  // console.log("jobs: ");
+  // console.log(jobs);
 
   return (
     <div className="home">
-      <div>
-        <Link to="/login">
-          <button>Log In</button>
-        </Link>
-        <Link to="/register">
-          <button>Register</button>
-        </Link>      
-      </div>
-     
-
+      <Nav type = "HomePage"/>
       <div className="container">
       <div className="header">
         JobFinder

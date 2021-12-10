@@ -1,18 +1,21 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import './LoggedHome.css';
+import "../css/LoggedHome.css";
+import Nav from "./Nav";
 import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router'; 
 import {useNavigate} from 'react-router';
 
 
 function LoggedHome() {
   const [formInput, setFormInput] = useState('');
+  const {state} = useLocation();
   // const [job, setJob] = useState({title: 'No match job title', company: 'None'});
-  const [job, setJob] = useState('');
+  const [job, setJob] = useState([]);
 
   function onSearchButtonClick() {
-    axios.get("http://localhost:8000/api/jobs/get/:keyword", job)
+    axios.get("http://localhost:8000/api/jobs/" + formInput)
       // .then(response => console.log(response))
       .then(response => {setJob(response.data)})
       .catch(error => setJob({
@@ -35,38 +38,24 @@ function LoggedHome() {
 //             .catch(error => console.log(error));    
 // }
 
+  const jobList = job.map(oneJob => {
+    return (
+            <div id = "joblst">
+            <Link to={"/jobDetail/"+oneJob._id}>
+            <div id = "onejob">
+              <p>Job Title: {oneJob.title}</p>
+              <p>Company: {oneJob.company}</p>
+              <p>Location: {oneJob.location}</p>
+            </div>
+            </Link>
+            <br/>
+            </div>)
+  })
 
-   
-  function displayUsername() {
-    axios.get("localhost:8000/api/jobs/get/whoIsLoggedIn")
-      .then(response => console.log(response))
-      .catch(error => console.log(error));
-  }
 
   return (
     <div className="home">
-      <div aligh="right">
-        <Link to="/">
-            <button>Home</button>
-        </Link>
-        <Link to="/logout">
-            <button>Logout</button>
-        </Link>
-        <Link to="/register">
-            <button>Register</button>
-        </Link>
-        <Link to="/favorite">
-          <button>Favorite</button>
-        </Link>
-        <Link to="/postJob">
-          <button>Post Job</button>
-        </Link>
-        <Link to="/myList">
-          <button>My List</button>
-        </Link>
-        <button>{displayUsername}</button>
-      </div>
-
+      <Nav type = "logged" info = {state}/>
       <div className="container">
       <div className="header">
         JobFinder
@@ -79,8 +68,8 @@ function LoggedHome() {
           Search job
         </button>
         <div>
-           <p>{job.title}</p>
-           <p>{job.company}</p>
+          {/* only one display right now, using findone */}
+          {jobList}
         </div>
 
         </div>

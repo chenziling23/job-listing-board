@@ -15,11 +15,15 @@ function findJobById(id) {
 
 //Find jobs by keyword
 function findJobByKeyword(keyword) {
-    return JobModel.find({title: keyword}).exec();
+    return JobModel.find({title: {'$regex' : keyword, '$options': 'i'}}).exec();
 }
 
 function findJobByCompany(company) {
     return JobModel.find({company: company}).exec();
+}
+
+function findJobByLike(like) {
+    return JobModel.find({like:like}).exec();
 }
 
 //Add job item
@@ -45,4 +49,5 @@ module.exports = {
     insertJob,
     updateJob,
     deleteOneJob,
+    findJobByLike,
 };
