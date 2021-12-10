@@ -56,3 +56,14 @@ input {
     align-items: center;
     font-weight: 100;
 }
+
+div {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+    align-items: left;
+}
+
+.right-side {
+    display: flex;
+    align-items: right;
+}

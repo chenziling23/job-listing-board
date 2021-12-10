@@ -13,6 +13,7 @@ function findUserByUsername(username) {
     return UserModel.findOne({username}).exec();
 }
 
+
 // Add to favorite list
 function insertFavoriteJobOfUser(username, jobId) {
     return UserModel.findOneAndUpdate({username: username}, {$addToSet: {favorites: jobId}});

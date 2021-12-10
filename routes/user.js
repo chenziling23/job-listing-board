@@ -28,17 +28,28 @@ router.get('/whoIsLoggedIn', auth_middleware, function(request, response) {
     const username = request.session.username;
 
     return response.send(username);
+    
 });
 
 //Register account, insert user 
 router.post('/register', function(req, res) {
-    const {username, password} = req.body;
+    const {username, password, verifyPassword} = req.body;
     console.log(req.body);
-    if(!username || !password) {
+    if(!username || !password || !verifyPassword) {
         return res.status(422).send("Missing username or password");
     }
 
-    return UserModel.insertUser({username, password})
+    // if(UserModel.findUserByUsername(username)) {
+    //     res.status(422).send("The username is registered already. Please pick another one");
+    //     console.log("Registered, pick another");
+    // }
+    
+    if(password !== verifyPassword) {
+        res.status(422).send("Password verification does not match");
+        console.log("Does not match");
+    }
+
+    return UserModel.insertUser({username, password, verifyPassword})
         .then((userResponse) => {
             console.log(userResponse);
             return res.status(200).send(userResponse);   
@@ -50,9 +61,9 @@ router.post('/register', function(req, res) {
 router.post('/login', function (req, res) {
     let {username, password} = req.body;
     password = JSON.stringify(password);
-    console.log(password);
-    console.log(username);
-    console.log(typeof username);
+    // console.log(password);
+    // console.log(username);
+    // console.log(typeof username);
     if(!username || !password) {
         return res.status(422).send("Must include both username and password");
     }
@@ -63,8 +74,8 @@ router.post('/login', function (req, res) {
                 return res.status(404).send("No user found with that name");
             }
 
-            if (userResponse.password === password) {
-                console.log(userResponse);
+            if (JSON.stringify(userResponse.password) === password) {
+                // console.log(userResponse);
                 const payload = {username: username};
                 const token = jwt.sign(payload, "SUPER_DUPER_SECRET", {
                     expiresIn: '14d',
@@ -82,8 +93,11 @@ router.post('/login', function (req, res) {
 
 });
 
-//
-
+//Logout user
+router.post('/logout', function(req, res) {
+    req.session.destroy()
+    return res.send("Logged out");
+})
 
 //Disable cookie after log out
 // router.post("/logout&", function(req, res) {

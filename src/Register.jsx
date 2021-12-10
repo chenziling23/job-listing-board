@@ -5,11 +5,12 @@ import './LogIn.css';
 import { useNavigate } from 'react-router'; 
 
 
-export default (props) => {
+function Register(props) {
 
     const [userData, setUserData] = useState({
-        password: '',
         username: '',
+        password: '',
+        verifyPassword: '',
     });
 
     
@@ -17,7 +18,7 @@ export default (props) => {
     function tryRegister () {
         axios.post('http://localhost:8000/api/users/register', userData)
                 .then((registerResponse) => {
-                    // console.log(registerResponse);
+                    console.log(registerResponse);
                     navigate('/');
                 })
                 .catch(error => console.log(error));    
@@ -67,12 +68,24 @@ export default (props) => {
             }} type='password' />
             </div>
 
-            <button 
-                onClick={tryRegister}
-            >Register</button>
+            <div className = "username">
+                Verify Password:
+            </div>
+            <div className = "input-box">
+            <input type='text' value={userData.verifyPassword} onChange={(e) => {
+                const verifyPassword = e.target.value;
+                setUserData({
+                    ...userData,
+                    verifyPassword: verifyPassword
+                })
+            }} type='password' />
+            </div>
+
+            <button onClick={tryRegister}>Register</button>
+
         </div>
         </div>    
     );
 }
 
-// export default Register
+export default Register

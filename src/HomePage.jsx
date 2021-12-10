@@ -1,19 +1,48 @@
 import React from 'react';
 import { useState } from 'react';
-import axios, { Axios } from 'axios';
+import axios from 'axios';
 import './HomePage.css';
 import { Link } from 'react-router-dom';
+import {useNavigate} from 'react-router';
 
 
 function HomePage() {
   const [formInput, setFormInput] = useState('');
-  const [job, setJob] = useState({title: 'No match job title', company: 'None'});
+  // const [job, setJob] = useState({title: 'No match job title', company: 'None'});
+  const [job, setJob] = useState([{
+    // title: '',
+    // company: '',
+    // location: '',
+    // description: '',
+  }]);
 
   function onSearchButtonClick() {
-    axios.get("http://localhost:8000/api/jobs/:keyword", job)
-      .then(response => setJob(response.data))
-      .catch(error => console.log("Could not find the job"));
+    axios.get("http://localhost:8000/api/jobs/" + formInput)
+      // .then(response => console.log(response))
+      .then(response => {
+        console.log(response);
+        setJob(response.data)})
+      .catch(error => setJob({
+        title: "No job found",
+        company: "No company found", 
+      }));
   }
+
+  
+
+  const jobs = job.map((j) => {
+    return (
+    <div id={j._id}>
+      <div>title: {j.title}</div>
+      <div>company: {j.company}</div>
+    </div>
+    );
+  })
+
+  console.log("job: ");
+  console.log(job);
+  console.log("jobs: ");
+  console.log(jobs);
 
   return (
     <div className="home">
@@ -23,11 +52,9 @@ function HomePage() {
         </Link>
         <Link to="/register">
           <button>Register</button>
-        </Link>
-        <Link to="/favorite">
-          <button>Favorite</button>
-        </Link>
+        </Link>      
       </div>
+     
 
       <div className="container">
       <div className="header">
@@ -40,10 +67,15 @@ function HomePage() {
         <button onClick={onSearchButtonClick}>
           Search job
         </button>
+        <div>
+           {jobs}
+        </div>
+
         </div>
       </div>
     </div>
   );
+
 }
 
 export default HomePage;

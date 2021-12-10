@@ -4,9 +4,10 @@ const JobModel = require('./model/Job.Model');
 const jwt = require('jsonwebtoken');
 const auth_middleware = require('./auth_middleware.js');
 const { UserSchema } = require('./schema/User.Schema');
+const { default: axios } = require('axios');
 
 
-router.get('/', function(req, res) {
+router.get('/findAll', function(req, res) {
     JobModel.getAllJobs()
         .then((jobResponse) => {
             res.status(200).send(jobResponse)
@@ -17,6 +18,7 @@ router.get('/', function(req, res) {
 //Find job by title/company/location/description/...
 router.get('/:keyword', function(req, res) {
     const keyword = req.params.keyword;
+    console.log(keyword);
     if (! keyword) {
         return res.status(422).send("Please type keyword");
     }
@@ -33,7 +35,8 @@ router.get('/:keyword', function(req, res) {
 
 //Add jobs
 router.post('/add', function(req, res) {
-    const {title, company, location, description, employerEmail, postDate} = req.body;
+    let {title, company, location, description, employerEmail, postDate} = req.body;
+    employerEmail = JSON.stringify(employerEmail);
     if(!title || !company || !location || !description || !employerEmail || !postDate) {
         return res.status(422).send("Missing data entry");
     }
@@ -46,13 +49,25 @@ router.post('/add', function(req, res) {
 });
 
 //Edit jobs
-router.put('/:', function(req, res) {
-    
+router.put('/:jobId', function(req, res) {
+    // let {updatedJob} = req.body;
+
+    // match.title = req.body.title;
+    // match.company = req.body.company;
+    // match.location = req.body.location;
+    // res.status(200).send("Success!");
+
+    return JobModel.updateJob(req.params.jobId, req.body)
+            .then(res => console.log("update success"))
+            .catch(e => console.log("update failed"));
+       
 });
 
 //Delete jobs
 router.delete('/delete', function(req, res) {
+    let {title, company, location, description, employerEmail, postDate} = req.body;
 
+    return JobModel.deleteOneJob
 });
 
 

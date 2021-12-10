@@ -8,9 +8,18 @@ function getAllJobs() {
     return JobModel.find().exec();
 }
 
+//Find job by id
+function findJobById(id) {
+    return JobModel.findById(id).exec();
+}
+
 //Find jobs by keyword
 function findJobByKeyword(keyword) {
-    return JobModel.find({keyword}).exec();
+    return JobModel.find({title: keyword}).exec();
+}
+
+function findJobByCompany(company) {
+    return JobModel.find({company: company}).exec();
 }
 
 //Add job item
@@ -19,8 +28,9 @@ function insertJob(job) {
 }
 
 //Update/Edit jobs
-function updateJob(job) {
-    return JobModel.updateOne(job).exec();
+function updateJob(jobId, newProps) {
+    return JobModel.updateOne({_id: jobId}, newProps).exec();
+    
 }
 
 //Delete job
@@ -30,6 +40,7 @@ function deleteOneJob() {
 
 module.exports = {
     getAllJobs,
+    findJobById,
     findJobByKeyword,
     insertJob,
     updateJob,

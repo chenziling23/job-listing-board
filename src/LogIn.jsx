@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, {useState} from 'react'
+import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 import './LogIn.css';
 import { useNavigate } from 'react-router'; 
@@ -17,8 +17,8 @@ function LogIn(props) {
     function tryLogin () {
         axios.post('http://localhost:8000/api/users/login', userData)
                 .then((loginResponse) => {
-                    console.log(loginResponse);
-                    navigate('/');
+                    // console.log(loginResponse);
+                    navigate('/userLogged');
                 })
                 .catch(error => console.log(error));    
     }
@@ -32,9 +32,6 @@ function LogIn(props) {
                 </Link>
                 <Link to="/register">
                 <button>Register</button>
-                </Link>
-                <Link to="/favorite">
-                <button>Favorite</button>
                 </Link>
             </div>
 
