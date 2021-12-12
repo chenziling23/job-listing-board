@@ -18,11 +18,9 @@ export default function MyList(props) {
     }
 
     function displayMyList () {
-        axios.get('http://localhost:8000/api/jobs/findAll')
-            .then(response => {
-                console.log(response);
-                setJob(response.data)
-            })
+        axios.get('/api/jobs/findAll' + jobTitle)
+            .then(response => setJob(response.data))
+
             .catch(error => console.log("Could not find the job"));
     }
 

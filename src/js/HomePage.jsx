@@ -3,6 +3,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import "../css/HomePage.css";
 import Nav from "./Nav";
+import { Link } from 'react-router-dom';
 import {useNavigate} from 'react-router';
 
 
@@ -12,7 +13,7 @@ function HomePage() {
   const [job, setJob] = useState([]);
 
   function onSearchButtonClick() {
-    axios.get("http://localhost:8000/api/jobs/" + formInput)
+    axios.get("/api/jobs/" + formInput)
       // .then(response => console.log(response))
       .then(response => {
         console.log(response);
@@ -26,13 +27,24 @@ function HomePage() {
   
 
   const jobs = job.map((j) => {
-    return (
-    <div id={j._id}>
-      <div>title: {j.title}</div>
-      <div>company: {j.company}</div>
-    </div>
-    );
-  })
+    if (j === undefined) {
+      return (
+        <div></div>
+      )
+    }else{
+      return (
+        <div id = "joblst">
+        <Link to={"/jobDetail/"+j._id}>
+        <div id = "onejob">
+          <p>Job Title: {j.title}</p>
+          <p>Company: {j.company}</p>
+          <p>Location: {j.location}</p>
+        </div>
+        </Link>
+        <br/>
+        </div>)
+    }
+})
 
   // console.log("job: ");
   // console.log(job);

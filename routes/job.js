@@ -13,6 +13,7 @@ router.put('/putlike/:id', function(req,res) {
         .then((jobResponse)=>{
             console.log(jobResponse.like)
             if (!jobResponse.like){
+                //return JobModel.updateJob(id,{$set:{like:true}})
                 return JobModel.updateJob(id,{like:true})
                     .then((jobResponse) => {
                         if (!jobResponse){

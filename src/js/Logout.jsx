@@ -8,7 +8,7 @@ function Logout(props) {
     const navigate = useNavigate();
 
     return (
-        <button onClick={() => axios.post('http://8000/api/users/logout')
+        <button onClick={() => axios.post('/api/users/logout')
             .then(() => {
                 navigate('/');
             })

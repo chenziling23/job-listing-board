@@ -15,9 +15,8 @@ function LogIn(props) {
    
     const navigate = useNavigate();
     function tryLogin () {
-        axios.post('http://localhost:8000/api/users/login', userData)
+        axios.post('/api/users/login', userData)
                 .then((loginResponse) => {
-                    // console.log(loginResponse);
                     navigate('/userLogged', {state: loginResponse.data.username});
                 })
                 .catch(error => console.log(error));    
