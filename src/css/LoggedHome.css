@@ -1,6 +1,7 @@
 button:hover {
     background-color: darkgreen;
 }
+
 button{
     background-color: rgb(111, 196, 111);
     border: none;
@@ -26,6 +27,7 @@ button{
     align-items: center;
     margin: 200px auto;
 }
+
 .header {
     font-family: "Gill Sans Extrabold", sans-serif;
     font-size: 60px;
@@ -46,8 +48,7 @@ input {
 .home {
     height: 900px;
     width: 100%;
-    background-color: rgb(203, 218, 203);
-    
+    background-color: rgb(203, 218, 203); 
 }
 
 
@@ -79,3 +80,4 @@ nav {
     border: 1px solid black;
     border-radius: 5%;
 }
+

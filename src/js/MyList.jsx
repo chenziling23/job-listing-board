@@ -1,31 +1,50 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { useParams } from 'react-router'; 
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
-export default function MyList(proprs) {
+export default function MyList(props) {
 
 
-    const jobTitle = useParams().title;
-    const [job, setJob] = useState('');
+    const jobTitle = useParams().job;
+    const [job, setJob] = useState([]);
+
+    function tryDelete () {
+        axios.delete('http://localhost:8000/api/jobs/delete')
+            .then(response => {
+                setJob(response.data)
+            })
+            .catch(error => console.log(error));
+    }
 
     function displayMyList () {
         axios.get('/api/jobs/findAll' + jobTitle)
             .then(response => setJob(response.data))
+
             .catch(error => console.log("Could not find the job"));
     }
 
+    const jobList = job.map(oneJob => {
+        return (
+                <div id = "joblst">
+                <button>Edit</button>
+                <button>Delete</button>
+                <Link to={"/jobDetail/"+oneJob._id}>
+                <div>
+                  <p>Job Title: {oneJob.title}</p>
+                  <p>Company: {oneJob.company}</p>
+                  <p>Location: {oneJob.location}</p>
+                </div>
+                </Link>
+                <br/>
+                </div>)
+      })
 
-    const jobComponent = job ?
-        (<><div>
-            Job Title: {job.title}
-            </div>
-            <div>
-            Job Company: {job.company}
-            </div></>) :
-            
-            (<div> No job found</div>);
-
+    useEffect(displayMyList, []);
+    
     return (
-        <div>Hello</div>
+        <div> 
+            {jobList}
+        </div>
     )
 }
