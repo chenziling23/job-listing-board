@@ -35,9 +35,11 @@ router.put('/putlike/:id', function(req,res) {
         .catch(error => res.status(400).send(error))
 })
 
+//Find all of the jobs
 router.get('/findAll', function(req, res) {
     JobModel.getAllJobs()
         .then((jobResponse) => {
+            // console.log(jobResponse);
             res.status(200).send(jobResponse)
         })
         .catch(error => res.status(400).send(error))
@@ -58,7 +60,7 @@ router.get('/jobDetail/:id', function(req, res) {
 })
 
 
-//Find job by title/company/location/description/...
+//Find job by title
 router.get('/:keyword', function(req, res) {
     const keyword = req.params.keyword;
     console.log(keyword);
@@ -103,25 +105,30 @@ router.post('/add', function(req, res) {
 });
 
 //Edit jobs
-router.put('/:jobId', function(req, res) {
-    // let {updatedJob} = req.body;
-
-    // match.title = req.body.title;
-    // match.company = req.body.company;
-    // match.location = req.body.location;
-    // res.status(200).send("Success!");
+router.put('edit/:jobId', function(req, res) {
 
     return JobModel.updateJob(req.params.jobId, req.body)
-            .then(res => console.log("update success"))
-            .catch(e => console.log("update failed"));
-       
+            // .then((jobResponse) => {
+            //     console.log(req.params.jobId);
+            //     console.log(req.body);
+            //     console.log(jobResponse);
+            //     return res.status(200).send(jobResponse);
+            // })
+            // .catch(error => res.status(400).send(error)); 
+            .then(response => {
+                console.log("update success");
+            })
+            .catch(e => console.log("update failed"));     
 });
 
 //Delete jobs
-router.delete('/delete', function(req, res) {
-    let {title, company, location, description, employerEmail, postDate} = req.body;
+router.delete('delete/:jobId', function(req, res) {
 
-    return JobModel.deleteOneJob
+    return JobModel.deleteOneJob(req.params.jobId)
+        // .then(response => {
+        //     console.log("delete successfully")
+        // });
+        // .catch(e => console.log("update failed"));
 });
 
 

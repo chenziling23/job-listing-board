@@ -8,13 +8,15 @@ function JobDetail() {
     const jobTitle = useParams().job;
     const [job, setJob] = useState("");
     const [active, setActive] = useState(false);
+
     function findJobDetails () {
         axios.get('http://localhost:8000/api/jobs/jobDetail/' + jobTitle)
             .then(response => {setJob(response.data)})
             .catch(error => console.log(error));
     }
+
     function needlike() {
-        axios.put("http://localhost:8000/api/jobs/putlike/"+jobTitle)
+        axios.put("http://localhost:8000/api/jobs/putlike/" + jobTitle)
                 .then(response => console.log("hiii"))
                 .catch(error => console.log(error))
     }

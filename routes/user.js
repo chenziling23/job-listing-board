@@ -28,7 +28,6 @@ router.get('/whoIsLoggedIn', auth_middleware, function(request, response) {
     const username = request.session.username;
 
     return response.send(username);
-    
 });
 
 //Register account, insert user 

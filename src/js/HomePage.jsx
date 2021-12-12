@@ -9,12 +9,7 @@ import {useNavigate} from 'react-router';
 function HomePage() {
   const [formInput, setFormInput] = useState('');
   // const [job, setJob] = useState({title: 'No match job title', company: 'None'});
-  const [job, setJob] = useState([{
-    // title: '',
-    // company: '',
-    // location: '',
-    // description: '',
-  }]);
+  const [job, setJob] = useState([]);
 
   function onSearchButtonClick() {
     axios.get("http://localhost:8000/api/jobs/" + formInput)
@@ -66,7 +61,6 @@ function HomePage() {
       </div>
     </div>
   );
-
 }
 
 export default HomePage;
