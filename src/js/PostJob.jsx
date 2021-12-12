@@ -17,7 +17,7 @@ function PostJob(props) {
 
     const navigate = useNavigate();
     function tryPostJob() {
-        axios.post('http://localhost:8000/api/jobs/add', jobData)
+        axios.post('/api/jobs/add', jobData)
             .then((jobResponse) => {
                 console.log(jobResponse);
                 console.log("Success!");

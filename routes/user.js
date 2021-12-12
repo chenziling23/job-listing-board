@@ -1,12 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const UserModel = require('./model/User.Model');
-const jwt = require('jsonwebtoken');
 const auth_middleware = require('./auth_middleware.js')
 
 
 //Find user by username
-router.get('/:username', function(req, res) {
+router.get('/need/:username', function(req, res) {
     const username = req.params.username;
     if (! username) {
         return res.status(422).send("Missing data");
@@ -25,8 +24,8 @@ router.get('/:username', function(req, res) {
 
 //Find who is logged in
 router.get('/whoIsLoggedIn', auth_middleware, function(request, response) {
+    console.log(request.session.username);
     const username = request.session.username;
-
     return response.send(username);
     
 });
@@ -49,10 +48,11 @@ router.post('/register', function(req, res) {
         console.log("Does not match");
     }
 
-    return UserModel.insertUser({username, password, verifyPassword})
+    return UserModel.insertUser({username:username, password:password})
         .then((userResponse) => {
+            req.session.username = username;
             console.log(userResponse);
-            return res.status(200).send(userResponse);   
+            return res.status(200).send(username);   
         })
         .catch(error => res.status(400).send(error));
 });
@@ -60,29 +60,20 @@ router.post('/register', function(req, res) {
 //Log in account, authenticate password
 router.post('/login', function (req, res) {
     let {username, password} = req.body;
-    password = JSON.stringify(password);
-    // console.log(password);
-    // console.log(username);
-    // console.log(typeof username);
+    // password = JSON.stringify(password);
     if(!username || !password) {
         return res.status(422).send("Must include both username and password");
     }
 
     return UserModel.findUserByUsername(username)
         .then((userResponse) => {
+            console.log(userResponse)
             if(!userResponse) {
-                return res.status(404).send("No user found with that name");
+                return res.status(405).send("No user found with that name");
             }
-
-            if (JSON.stringify(userResponse.password) === password) {
-                // console.log(userResponse);
-                const payload = {username: username};
-                const token = jwt.sign(payload, "SUPER_DUPER_SECRET", {
-                    expiresIn: '14d',
-                });
-                // req.session.username = username;
-                return res.cookie('huntersCookie', token, {httpOnly: true})
-                    .status(200).send({username});
+            if (userResponse.password === password) {
+                req.session.username = username;
+                return res.status(200).send({username});
             } else {
                 return res.status(404).send("No user found with that password");
            

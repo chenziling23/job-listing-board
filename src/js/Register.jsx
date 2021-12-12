@@ -23,7 +23,7 @@ function Register(state) {
     
     const navigate = useNavigate();
     function tryRegister () {
-        axios.post('http://localhost:8000/api/users/register', userData)
+        axios.post('/api/users/register', userData)
                 .then((registerResponse) => {
                     navigate('/userLogged', {state: registerResponse.data.username});
                     })

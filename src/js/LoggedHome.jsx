@@ -15,7 +15,7 @@ function LoggedHome() {
   const [job, setJob] = useState([]);
 
   function onSearchButtonClick() {
-    axios.get("http://localhost:8000/api/jobs/" + formInput)
+    axios.get("/api/jobs/" + formInput)
       // .then(response => console.log(response))
       .then(response => {setJob(response.data)})
       .catch(error => setJob({
@@ -30,7 +30,7 @@ function LoggedHome() {
 //   });
 
 //   function tryLogin () {
-//     axios.post('http://localhost:8000/api/users/login', userData)
+//     axios.post('/api/users/login', userData)
 //             .then((loginResponse) => {
 //                 console.log(loginResponse);
 //                 // navigate('/userLogged');
@@ -39,7 +39,12 @@ function LoggedHome() {
 // }
 
   const jobList = job.map(oneJob => {
-    return (
+    if (oneJob === undefined) {
+      return (
+        <div></div>
+      )
+    }else{
+      return (
             <div id = "joblst">
             <Link to={"/jobDetail/"+oneJob._id}>
             <div id = "onejob">
@@ -50,6 +55,7 @@ function LoggedHome() {
             </Link>
             <br/>
             </div>)
+    }
   })
 
 
