@@ -21,8 +21,6 @@ const app = express();
 // app.use(session({secret: "SUPER_DUPER_SECRET"}));
 app.use(session({secret: "SUPER_DUPER_SECRET",
     store: MongoStore.create({ mongoUrl: mongoString }),
-    saveUninitialized: true,
-    resave:true,
 }));
 
 

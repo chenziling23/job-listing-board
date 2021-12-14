@@ -7,34 +7,34 @@ const { UserSchema } = require('./schema/User.Schema');
 const { default: axios } = require('axios');
 const { route } = require('./user');
 
-router.put('/putlike/:id', function(req,res) {
-    const id = req.params.id;
-    JobModel.findJobById(id)
-        .then((jobResponse)=>{
-            console.log(jobResponse.like)
-            if (!jobResponse.like){
-                //return JobModel.updateJob(id,{$set:{like:true}})
-                return JobModel.updateJob(id,{like:true})
-                    .then((jobResponse) => {
-                        if (!jobResponse){
-                            return res.status(404).send("Not found related jobs");
-                        }
-                        return res.status(200).send("putted yes")
-                    })
-                    .catch(error => res.status(400).send(error))
-            }else{
-                return JobModel.updateJob(id,{like:false})
-                    .then((jobResponse) => {
-                        if (!jobResponse){
-                            return res.status(404).send("Not found related jobs");
-                        }
-                        return res.status(200).send("putted no")
-                    })
-                    .catch(error => res.status(400).send(error))
-            }
-        })
-        .catch(error => res.status(400).send(error))
-})
+// router.put('/putlike/:id', function(req,res) {
+//     const id = req.params.id;
+//     JobModel.findJobById(id)
+//         .then((jobResponse)=>{
+//             console.log(jobResponse.like)
+//             if (!jobResponse.like){
+//                 //return JobModel.updateJob(id,{$set:{like:true}})
+//                 return JobModel.updateJob(id,{like:true})
+//                     .then((jobResponse) => {
+//                         if (!jobResponse){
+//                             return res.status(404).send("Not found related jobs");
+//                         }
+//                         return res.status(200).send("putted yes")
+//                     })
+//                     .catch(error => res.status(400).send(error))
+//             }else{
+//                 return JobModel.updateJob(id,{like:false})
+//                     .then((jobResponse) => {
+//                         if (!jobResponse){
+//                             return res.status(404).send("Not found related jobs");
+//                         }
+//                         return res.status(200).send("putted no")
+//                     })
+//                     .catch(error => res.status(400).send(error))
+//             }
+//         })
+//         .catch(error => res.status(400).send(error))
+// })
 
 router.get('/findAll', function(req, res) {
     JobModel.getAllJobs()
@@ -49,7 +49,6 @@ router.get('/jobDetail/:id', function(req, res) {
     console.log(id);
     return JobModel.findJobById(id)
         .then((jobResponse) => {
-            console.log(jobResponse);
             if (!jobResponse){
                 return res.status(404).send("Not found related jobs");
             }
@@ -77,16 +76,16 @@ router.get('/:keyword', function(req, res) {
         .catch(error => res.status(500).send("Issue getting jobs"));
 })
 
-router.get("/find/favoriteLst", function(req,res) {
-    return JobModel.findJobByLike(true)
-        .then((jobResponse) => {
-            if (!jobResponse){
-                return res.status(404).send("Not found related jobs");
-            }
-            return res.status(200).send(jobResponse);
-        })
-        .catch(error => res.status(500).send("Issue getting jobs"));
-})
+// router.get("/find/favoriteLst", function(req,res) {
+//     return JobModel.findJobByLike(true)
+//         .then((jobResponse) => {
+//             if (!jobResponse){
+//                 return res.status(404).send("Not found related jobs");
+//             }
+//             return res.status(200).send(jobResponse);
+//         })
+//         .catch(error => res.status(500).send("Issue getting jobs"));
+// })
 
 //Add jobs
 router.post('/add', function(req, res) {

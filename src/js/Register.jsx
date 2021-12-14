@@ -25,7 +25,7 @@ function Register(state) {
     function tryRegister () {
         axios.post('/api/users/register', userData)
                 .then((registerResponse) => {
-                    navigate('/userLogged', {state: registerResponse.data.username});
+                    navigate('/userLogged', {state: registerResponse});
                     })
                 .catch(error => console.log(error));    
     }

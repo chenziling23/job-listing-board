@@ -22,10 +22,10 @@ exports.JobSchema = new Schema(
         postDate: {
             type: String,
         },
-        like: {
-            type:Boolean,
-            default:false,
-        }
+        // like: {
+        //     type:Boolean,
+        //     default:false,
+        // }
     }, {
         collection: 'jobs'
     }

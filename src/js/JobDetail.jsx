@@ -9,25 +9,33 @@ function JobDetail() {
     const navigate = useNavigate();
     const jobTitle = useParams().job;
     const [job, setJob] = useState("");
+    const [name, setName] = useState("");
     const [active, setActive] = useState(false);
     function findJobDetails () {
         axios.get('/api/jobs/jobDetail/' + jobTitle)
             .then(response => {setJob(response.data)})
             .catch(error => console.log(error));
     }
-    function needlike() {
-        axios.put("/api/jobs/putlike/"+jobTitle)
-                .then(response => console.log("hiii"))
-                .catch(error => console.log(error))
-    }
+    // function needlike() {
+    //     axios.put("/api/jobs/putlike/"+jobTitle)
+    //             .then(response => console.log("hiii"))
+    //             .catch(error => console.log(error))
+    // }
 
 
     function checkLogin() {
         axios.get('/api/users/whoIsLoggedIn')
-            .then(() => console.log("Success"))
+            .then((res) => {
+                if (!active){
+                    axios.put("/api/users/putFavLst/"+res.data+"/"+jobTitle)
+                }else{
+                    axios.put("/api/users/removeFavLst/"+res.data+"/"+jobTitle)
+                }
+            })
             .catch(() => navigate('/logIn'))
     }
     useEffect(findJobDetails, []);
+
 
     // const jobComponent = job ?
     //     (<><div>
@@ -48,7 +56,7 @@ function JobDetail() {
                 <li>Employer email contact: <a href = {job.employerEmail}>{job.employerEmail}</a></li>
                 <li>Posting date : {job.postDate}</li>
             </ul>
-            <Heart style={{width: "2rem"}} isActive={active} onClick={() => {setActive(!active); needlike(); checkLogin();}}></Heart>
+            <Heart style={{width: "2rem"}} isActive={active} onClick={() => {setActive(!active); checkLogin();}}></Heart>
         </div>
     )
 }

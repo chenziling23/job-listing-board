@@ -33,7 +33,6 @@ router.get('/whoIsLoggedIn', auth_middleware, function(request, response) {
 //Register account, insert user 
 router.post('/register', function(req, res) {
     const {username, password, verifyPassword} = req.body;
-    console.log(req.body);
     if(!username || !password || !verifyPassword) {
         return res.status(422).send("Missing username or password");
     }
@@ -51,8 +50,7 @@ router.post('/register', function(req, res) {
     return UserModel.insertUser({username:username, password:password})
         .then((userResponse) => {
             req.session.username = username;
-            console.log(userResponse);
-            return res.status(200).send(username);   
+            return res.status(200).send(console.log(username));   
         })
         .catch(error => res.status(400).send(error));
 });
@@ -83,6 +81,33 @@ router.post('/login', function (req, res) {
         .catch((error) => console.error(`Something went wrong: ${error}`));
 
 });
+
+router.put("/putFavLst/:username/:id",function(req,res) {
+    const id = req.params.id;
+    const username = req.params.username;
+    return UserModel.insertFavoriteJobOfUser(username, id)
+    .then((userResponse) => {
+        if(!userResponse) {
+            return res.status(405).send("No user found with that name");
+        }
+        return res.status(200).send("putted yes");
+    })
+    .catch(error => res.status(400).send(error))
+})
+
+router.put("/removeFavLst/:username/:id",function(req,res) {
+    const id = req.params.id;
+    const username = req.params.username;
+    return UserModel.deleteFavoriteJobOfUser(username, id)
+    .then((userResponse) => {
+        if(!userResponse) {
+            return res.status(405).send("No user found with that name");
+        }
+        return res.status(200).send("remove yes");
+    })
+    .catch(error => res.status(400).send(error))
+})
+
 
 //Logout user
 router.post('/logout', function(req, res) {

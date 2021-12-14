@@ -9,8 +9,8 @@ function insertUser(user) {
 }
 
 // Find/Log in user for authenticate
-function findUserByUsername(username2) {
-    return UserModel.findOne({username:username2}).exec();
+function findUserByUsername(username) {
+    return UserModel.findOne({username:username}).exec();
 }
 
 
