@@ -8,8 +8,8 @@ import { Button } from "react-bootstrap";
 import { FormControl } from "react-bootstrap";
 import {Menu} from "react-bootstrap";
 
-export default function Try(){
-    return(
+// export default function Try(){
+    // return(
     // <Navbar bg="dark" variant="dark" expand="lg" fixed = "top">
     //     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     //         <Navbar.Collapse id="basic-navbar-nav">
@@ -40,15 +40,7 @@ export default function Try(){
 //     </Navbar.Collapse>
 //   </Container>
 // </Navbar>
-
-<Container>
-  <Navbar expand="lg" variant="light" bg="light">
-    <Container>
-      <Navbar.Brand href="#">Navbar</Navbar.Brand>
-    </Container>
-  </Navbar>
-</Container>
-    )
+//     )
 
     
-}
+// }

@@ -41,7 +41,7 @@ export default function MyList(props) {
                 // console.log(id);
                 // console.log("success");
                 
-                navigateBack("/MyList");
+                navigateBack("/myList");
                 window.location.reload();
                 // let curJobNum = jobNum;
                 // setJobNum(curJobNum - 1);
