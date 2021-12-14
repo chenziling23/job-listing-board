@@ -41,7 +41,7 @@ export default function MyList(props) {
                 // console.log(id);
                 // console.log("success");
                 
-                navigateBack("/myList");
+                navigateBack("/userLogged");
                 window.location.reload();
                 // let curJobNum = jobNum;
                 // setJobNum(curJobNum - 1);
@@ -78,6 +78,9 @@ export default function MyList(props) {
     
     return (
         <div> 
+            <div>
+            {jobList.length === 0 && <p>No Post yet</p>}
+            </div>
             {jobList}
         </div>
     )

@@ -1,4 +1,5 @@
 const Schema = require('mongoose').Schema;
+const moment = require('moment')
 
 
 exports.JobSchema = new Schema(
@@ -20,8 +21,12 @@ exports.JobSchema = new Schema(
             type: String,
         },
         postDate: {
-            type: String,
+            type: Date,
+            default: moment(),
         },
+        web:{
+            type: String,
+        }
         // like: {
         //     type:Boolean,
         //     default:false,
