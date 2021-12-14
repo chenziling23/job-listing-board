@@ -12,6 +12,7 @@ import Favorite from './js/Favorite';
 import PostJob from './js/PostJob';
 import MyList from './js/MyList';
 import JobDetail from './js/JobDetail';
+import EditJob from './js/EditJob';
 
 
 ReactDOM.render(
@@ -25,9 +26,11 @@ ReactDOM.render(
       <Route path = "/favorite" element = {<Favorite />} />
       <Route path = "/postJob" element = {<PostJob />} />
       <Route path = "/jobDetail/:job" element = {<JobDetail />} />
+      <Route path = "/editJob/:id" element = {<EditJob />} />
       <Route path = "/myList" element = {<MyList />} />
     </Routes>
   </Router>
+
 
   // <React.StrictMode>
   //   <HomePage />

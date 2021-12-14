@@ -24,10 +24,9 @@ router.get('/need/:username', function(req, res) {
 
 //Find who is logged in
 router.get('/whoIsLoggedIn', auth_middleware, function(request, response) {
-    console.log(request.session.username);
+    // console.log(request.session.username);
     const username = request.session.username;
     return response.send(username);
-    
 });
 
 //Register account, insert user 
@@ -65,7 +64,7 @@ router.post('/login', function (req, res) {
 
     return UserModel.findUserByUsername(username)
         .then((userResponse) => {
-            console.log(userResponse)
+            // console.log(userResponse)
             if(!userResponse) {
                 return res.status(405).send("No user found with that name");
             }

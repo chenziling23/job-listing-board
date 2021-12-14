@@ -3,25 +3,40 @@ import "../css/PostJob.css";
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import { useNavigate } from 'react-router';
+import { useParams } from 'react-router'; 
+import { useEffect } from "react";
 
-function PostJob(props) {
+function EditJob(props) {
 
+    // const {title, company, location, description, employerEmail, postDate} = props;
     const [jobData, setJobData] = useState({
-        title: '',
-        company: '',
-        location: '',
-        description: '',
-        employerEmail: '',
-        postDate: '',
+        title: "",
+        company: "",
+        location: "",
+        description: "",
+        employerEmail: "",
+        postDate: "",
     });
 
-    const navigate = useNavigate();
-    function tryPostJob() {
-        axios.post('/api/jobs/add', jobData)
+
+    const id = useParams().id;
+    function getJob() {
+        axios.get("/api/jobs/jobDetail/" + id)
+        .then(response =>
+            setJobData(response.data))
+        .catch(error => console.log("error"))}
+
+    useEffect(getJob, [])
+
+
+    console.log(id);
+    const navigateLoggedPage = useNavigate();
+    function editJob() {
+        axios.put(`/api/jobs/edit/${id}`, jobData)
             .then((jobResponse) => {
-                console.log(jobResponse);
+                // console.log(jobResponse);
                 console.log("Success!");
-                navigate('/userLogged');
+                navigateLoggedPage('/userLogged');
             })
             .catch(error => console.log(error));
     }
@@ -29,7 +44,6 @@ function PostJob(props) {
 
     return(
         <div className="page" align="right">
-            {/* <Nav type = "logged" info = {state}/> */}
             <div>
                 <Link to="/">
                     <button>Home</button>
@@ -37,8 +51,9 @@ function PostJob(props) {
                 <Link to="/register">
                     <button>Register</button>
                 </Link>
-                <Link to="/favorite">
-                    <button>Favorite</button>
+                
+                <Link to="/myList">
+                    <button>My List</button>
                 </Link>
                 <button>username</button>
             </div>
@@ -54,6 +69,7 @@ function PostJob(props) {
             <div className = "input-box">
             <input type='text' value={jobData.title} onChange={(e) => {
                 const title = e.target.value;
+                console.log(title);
                 setJobData({
                     ...jobData,
                     title: title
@@ -125,13 +141,12 @@ function PostJob(props) {
             }}/>
             </div>
 
-            <button onClick={tryPostJob}>Post Job</button>
+            <button onClick={editJob}>Submit Edit</button>
            
         </div>
         </div>    
      
     );
-
 }
 
-export default PostJob
+export default EditJob

@@ -11,6 +11,7 @@ function JobDetail() {
     const [job, setJob] = useState("");
     const [name, setName] = useState("");
     const [active, setActive] = useState(false);
+
     function findJobDetails () {
         axios.get('/api/jobs/jobDetail/' + jobTitle)
             .then(response => {setJob(response.data)})

@@ -5,7 +5,7 @@ const JobModel = mongoose.model("Job", JobSchema);
 
 //Find all job
 function getAllJobs() {
-    return JobModel.find().exec();
+    return JobModel.find({}).exec();
 }
 
 //Find job by id
@@ -18,8 +18,8 @@ function findJobByKeyword(keyword) {
     return JobModel.find({title: {'$regex' : keyword, '$options': 'i'}}).exec();
 }
 
-function findJobByCompany(company) {
-    return JobModel.find({company: company}).exec();
+function findJobByTitleAndCompany(title, company) {
+    return JobModel.findOne({title: title, company: company}).exec();
 }
 
 function findJobByLike(like) {
@@ -37,8 +37,8 @@ function updateJob(jobId, newProps) {
 }
 
 //Delete job
-function deleteOneJob() {
-    return JobModel.deleteOne().exec();
+function deleteOneJob(jobId) {
+    return JobModel.deleteOne({_id: jobId}).exec();
 }
 
 module.exports = {
@@ -49,4 +49,5 @@ module.exports = {
     updateJob,
     deleteOneJob,
     findJobByLike,
+    findJobByTitleAndCompany,
 };

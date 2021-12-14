@@ -50,7 +50,7 @@ export default function Nav(props){
                     <button>Post Job</button>
                     </Link>
                     <Link to="/myList">
-                    <button> my list</button>
+                    <button>My List</button>
                     </Link>
                 </div>
                 <div>

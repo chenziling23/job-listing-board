@@ -10,7 +10,9 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session')
 const MongoStore = require('connect-mongo');
 
+
 const mongoString = "mongodb://localhost:27017/job";
+
 mongoose.connect(mongoString, { useNewUrlParser: true });
 
 const mongoDB = mongoose.connection;

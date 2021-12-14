@@ -87,8 +87,8 @@ useEffect(checkLogin,[])
         <div>
           {/* only one display right now, using findone */}
           {jobList}
-        </div>
 
+        </div>
         </div>
       </div>
     </div>
