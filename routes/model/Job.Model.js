@@ -32,8 +32,8 @@ function insertJob(job) {
 }
 
 //Update/Edit jobs
-function updateJob(jobId, data) {
-    return JobModel.updateOne({_id: jobId}, data).exec();
+function updateJob(jobId, newProps) {
+    return JobModel.updateOne({_id: jobId}, newProps).exec();
 }
 
 //Delete job
