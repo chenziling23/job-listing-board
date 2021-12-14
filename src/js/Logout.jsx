@@ -15,8 +15,7 @@ function Logout(props) {
             .catch(console.error)
             }>Logout</button>
     );
-    
-    
+
 }
 
 export default Logout

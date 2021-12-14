@@ -12,8 +12,9 @@ function PostJob(props) {
         location: '',
         description: '',
         employerEmail: '',
-        postDate: '',
+        web: '',
     });
+    const [error, setError] = useState("");
 
     const navigate = useNavigate();
     function tryPostJob() {
@@ -21,9 +22,9 @@ function PostJob(props) {
             .then((jobResponse) => {
                 console.log(jobResponse);
                 console.log("Success!");
-                navigate('/userLogged');
+                navigate('/jobDetail/'+jobResponse.data._id);
             })
-            .catch(error => console.log(error));
+            .catch(e => setError(e.response.data));
     }
 
 
@@ -45,11 +46,12 @@ function PostJob(props) {
 
         <div className = "contain">
             <div className="job-finder">
-                JobFinder
+                JobFinder:
+                <p>{error}</p>
             </div>
 
             <div className = "username">
-                Title:
+                Title*:
             </div>
             <div className = "input-box">
             <input type='text' value={jobData.title} onChange={(e) => {
@@ -62,7 +64,7 @@ function PostJob(props) {
             </div>
 
             <div className = "username">
-                Company:
+                Company Name*:
             </div>
             <div className = "input-box">
             <input type='text' value={jobData.company} onChange={(e) => {
@@ -75,7 +77,7 @@ function PostJob(props) {
             </div>
 
             <div className = "username">
-                Location:
+                Location*:
             </div>
             <div className = "input-box">
             <input type='text' value={jobData.location} onChange={(e) => {
@@ -88,7 +90,7 @@ function PostJob(props) {
             </div>
 
             <div className = "username">
-                Description:
+                Description*:
             </div>
             <div className = "input-box">
             <input type='text' value={jobData.description} onChange={(e) => {
@@ -101,7 +103,7 @@ function PostJob(props) {
             </div>
 
             <div className = "username">
-                Employer Email:
+                Employer Email*:
             </div>
             <div className = "input-box">
             <input type='text' value={jobData.employerEmail} onChange={(e) => {
@@ -113,14 +115,14 @@ function PostJob(props) {
             }}/>
             </div>
             <div className = "username">
-                Post Date:
+                Company Website(Optional):
             </div>
             <div className = "input-box">
-            <input type='text' value={jobData.postDate} onChange={(e) => {
-                const postDate = e.target.value;
+            <input type='text' value={jobData.web} onChange={(e) => {
+                const web = e.target.value;
                 setJobData({
                     ...jobData,
-                    postDate: postDate
+                    web: web
                 })
             }}/>
             </div>

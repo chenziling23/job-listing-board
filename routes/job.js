@@ -91,22 +91,29 @@ router.get('/:keyword', function(req, res) {
 
 //Add jobs
 router.post('/add', function(req, res) {
-    let {title, company, location, description, employerEmail, postDate} = req.body;
+    let {title, company, location, description, employerEmail, web} = req.body;
     employerEmail = JSON.stringify(employerEmail);
-    if(!title || !company || !location || !description || !employerEmail || !postDate) {
-        return res.status(422).send("Missing data entry");
+    if(!title || !company || !location || !description || !employerEmail) {
+        return res.status(422).send("All * fields are required");
     }
 
     
     // if(JobModel.findJobByTitleAndCompany(req.body.title, req.body.company)) {
     //     return res.status(422).send("Duplicate!");
     // }
-
-    return JobModel.insertJob({title, company, location, description, employerEmail, postDate})
+    if (web != null){
+        return JobModel.insertJob({title, company, location, description, employerEmail, web})
         .then((jobResponse) => {
             return res.status(200).send(jobResponse);
         })
         .catch(error => res.status(400).send(error));
+    }else{
+        return JobModel.insertJob({title, company, location, description, employerEmail})
+        .then((jobResponse) => {
+            return res.status(200).send(jobResponse);
+        })
+        .catch(error => res.status(400).send(error));
+    }
 });
 
 //Edit jobs

@@ -29,14 +29,11 @@ function EditJob(props) {
     useEffect(getJob, [])
 
 
-    console.log(id);
-    const navigateLoggedPage = useNavigate();
+    const navigate = useNavigate();
     function editJob() {
         axios.put(`/api/jobs/edit/${id}`, jobData)
             .then((jobResponse) => {
-                // console.log(jobResponse);
-                console.log("Success!");
-                navigateLoggedPage('/userLogged');
+                navigate('/jobDetail/'+id);
             })
             .catch(error => console.log(error));
     }

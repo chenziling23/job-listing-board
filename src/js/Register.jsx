@@ -11,6 +11,7 @@ function Register(state) {
         password: '',
         verifyPassword: '',
     });
+    const [error, setError] = useState("");
 
     // const [loggedInName, setLoggedInName] = useState('');
 
@@ -27,7 +28,7 @@ function Register(state) {
                 .then((registerResponse) => {
                     navigate('/userLogged', {state: registerResponse});
                     })
-                .catch(error => console.log(error));    
+                .catch(e => setError(e.response.data));
     }
 
     return (
@@ -40,6 +41,7 @@ function Register(state) {
             </div>
             <div className = "username">
                 Username:
+                <p>{error}</p>
             </div>
             <div className = "input-box">
             <input type='text' value={userData.username} onChange={(e) => {

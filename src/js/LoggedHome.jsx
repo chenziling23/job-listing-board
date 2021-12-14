@@ -11,7 +11,6 @@ import { useNavigate } from 'react-router';
 function LoggedHome() {
   const navigate = useNavigate();
   const [formInput, setFormInput] = useState('');
-  const [name, setName] = useState("");
   // const [job, setJob] = useState({title: 'No match job title', company: 'None'});
   const [job, setJob] = useState([]);
 
@@ -27,7 +26,7 @@ function LoggedHome() {
 
   function checkLogin() {
     axios.get('/api/users/whoIsLoggedIn')
-        .then((res) => setName(res.data))
+        .then((res) => console.log(res.data))
         .catch(() => navigate('/logIn'))
   }
 
@@ -72,7 +71,7 @@ useEffect(checkLogin,[])
 
   return (
     <div className="home">
-      <Nav type = "logged" info = {name}/>
+      <Nav type = "logged"/>
       <div className="container">
       <div className="header">
         JobFinder

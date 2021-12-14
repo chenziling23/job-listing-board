@@ -11,6 +11,7 @@ function LogIn(props) {
         password: '',
         username: '',
     });
+    const [error, setError] = useState("");
 
    
     const navigate = useNavigate();
@@ -19,7 +20,7 @@ function LogIn(props) {
                 .then((loginResponse) => {
                     navigate('/userLogged', {state: loginResponse.data.username});
                 })
-                .catch(error => console.log(error));    
+                .catch(e => setError(e.response.data));    
     }
     
 
@@ -32,6 +33,7 @@ function LogIn(props) {
             </div>
             <div className = "username">
                 Username:
+                <p>{error}</p>
             </div>
             <div className = "input-box">
             <input type='text' value={userData.username} onChange={(e) => {

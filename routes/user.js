@@ -51,7 +51,7 @@ router.post('/register', function(req, res) {
             req.session.username = username;
             return res.status(200).send(console.log(username));   
         })
-        .catch(error => res.status(400).send(error));
+        .catch(error => res.status(400).send("User name exist, change another one"));
 });
 
 //Log in account, authenticate password
@@ -111,6 +111,7 @@ router.put("/removeFavLst/:username/:id",function(req,res) {
 //Logout user
 router.post('/logout', function(req, res) {
     req.session.destroy()
+    console.log("hiiii");
     return res.send("Logged out");
 })
 

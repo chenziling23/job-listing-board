@@ -3,6 +3,8 @@ import React, { useState,useEffect } from 'react';
 import { useParams } from 'react-router'; 
 import Heart from "react-heart";
 import { useNavigate } from 'react-router';
+import Nav from "./Nav";
+import moment from 'moment';
 
 
 function JobDetail() {
@@ -46,16 +48,28 @@ function JobDetail() {
     //         Job Company: {job.company}
     //         </div></>) :
     //         (<div> No job found</div>);
-
+    // function checkWeb() {
+    //     console.log(job.web)
+    //     if (job.web !== null){
+    //         return (
+    //             <li>Web: {job.web}</li>
+    //         )
+    //     }
+    // }
+    
     return (
         <div>
+            <Nav type = "logged" info = {name}></Nav>
             <ul>
                 <li>Job title: {job.title}</li>
                 <li>Company name: {job.company}</li>
                 <li>Location: {job.location}</li>
                 <li>Description: {job.description}</li>
                 <li>Employer email contact: <a href = {job.employerEmail}>{job.employerEmail}</a></li>
-                <li>Posting date : {job.postDate}</li>
+                <div>
+                {job.web != null && <li>Company Website: {job.web}</li>}
+                </div>
+                <li>Posting date : {moment().startOf(job.postDate).fromNow()}</li>
             </ul>
             <Heart style={{width: "2rem"}} isActive={active} onClick={() => {setActive(!active); checkLogin();}}></Heart>
         </div>
