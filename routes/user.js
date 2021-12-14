@@ -24,7 +24,7 @@ router.get('/need/:username', function(req, res) {
 
 //Find who is logged in
 router.get('/whoIsLoggedIn', auth_middleware, function(request, response) {
-    console.log(request.session.username);
+    // console.log(request.session.username);
     const username = request.session.username;
     return response.send(username);
 });
@@ -32,7 +32,7 @@ router.get('/whoIsLoggedIn', auth_middleware, function(request, response) {
 //Register account, insert user 
 router.post('/register', function(req, res) {
     const {username, password, verifyPassword} = req.body;
-    console.log(req.body);
+    // console.log(req.body);
     if(!username || !password || !verifyPassword) {
         return res.status(422).send("Missing username or password");
     }
@@ -50,7 +50,7 @@ router.post('/register', function(req, res) {
     return UserModel.insertUser({username:username, password:password})
         .then((userResponse) => {
             req.session.username = username;
-            console.log(userResponse);
+            // console.log(userResponse);
             return res.status(200).send(username);   
         })
         .catch(error => res.status(400).send(error));
@@ -66,7 +66,7 @@ router.post('/login', function (req, res) {
 
     return UserModel.findUserByUsername(username)
         .then((userResponse) => {
-            console.log(userResponse)
+            // console.log(userResponse)
             if(!userResponse) {
                 return res.status(405).send("No user found with that name");
             }

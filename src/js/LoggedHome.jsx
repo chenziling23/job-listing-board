@@ -48,7 +48,7 @@ function LoggedHome() {
 
   return (
     <div className='home'>
-      <Nav type = "logged" info = {state}/>
+      <Nav type = "logged" info = {state} />
       {/* <Try></Try> */}
       <div className="container">
       <div className="header">

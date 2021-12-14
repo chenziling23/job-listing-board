@@ -48,10 +48,10 @@ router.get('/findAll', function(req, res) {
 
 router.get('/jobDetail/:id', function(req, res) {
     const id = req.params.id;
-    console.log(id);
+    // console.log(id);
     return JobModel.findJobById(id)
         .then((jobResponse) => {
-            console.log(jobResponse);
+            // console.log(jobResponse);
             if (!jobResponse){
                 return res.status(404).send("Not found related jobs");
             }
@@ -64,7 +64,7 @@ router.get('/jobDetail/:id', function(req, res) {
 //Find job by title
 router.get('/:keyword', function(req, res) {
     const keyword = req.params.keyword;
-    console.log(keyword);
+    // console.log(keyword);
     if (! keyword) {
         return res.status(422).send("Please type keyword");
     }
@@ -98,6 +98,11 @@ router.post('/add', function(req, res) {
         return res.status(422).send("Missing data entry");
     }
 
+    
+    // if(JobModel.findJobByTitleAndCompany(req.body.title, req.body.company)) {
+    //     return res.status(422).send("Duplicate!");
+    // }
+
     return JobModel.insertJob({title, company, location, description, employerEmail, postDate})
         .then((jobResponse) => {
             return res.status(200).send(jobResponse);
@@ -106,32 +111,25 @@ router.post('/add', function(req, res) {
 });
 
 //Edit jobs
-router.put('edit/:jobId', function(req, res) {
-
+router.put('/edit/:jobId', function(req, res) {
+    console.log(req.params);
     return JobModel.updateJob(req.params.jobId, req.body)
-            // .then((jobResponse) => {
-            //     console.log(req.params.jobId);
-            //     console.log(req.body);
-            //     console.log(jobResponse);
-            //     return res.status(200).send(jobResponse);
-            // })
-            // .catch(error => res.status(400).send(error)); 
             .then(response => {
-                console.log("update success");
+                console.log("backEnd update success");
             })
             .catch(e => console.log("update failed"));     
 });
 
+
 //Delete jobs
-router.delete('delete/:jobId', function(req, res) {
-
+router.delete('/delete/:jobId', function(req, res) {
+    console.log(req.params)
     return JobModel.deleteOneJob(req.params.jobId)
-        // .then(response => {
-        //     console.log("delete successfully")
-        // });
-        // .catch(e => console.log("update failed"));
+        .then((response) => {
+            console.log("delete successfully");
+        })
+        .catch(error => console.log("Unable delete"));
 });
-
 
 
 module.exports = router;

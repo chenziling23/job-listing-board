@@ -20,7 +20,7 @@ exports.JobSchema = new Schema(
             type: String,
         },
         postDate: {
-            type: Date,
+            type: String,
         },
         like: {
             type:Boolean,

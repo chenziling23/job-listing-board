@@ -3,24 +3,38 @@ import "../css/PostJob.css";
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import { useNavigate } from 'react-router';
+import { useParams } from 'react-router'; 
+import { useEffect } from "react";
 
-function PostJob(props) {
+function EditJob(props) {
 
+    const {title, company, location, description, employerEmail, postDate} = props;
     const [jobData, setJobData] = useState({
-        title: '',
-        company: '',
-        location: '',
-        description: '',
-        employerEmail: '',
-        postDate: '',
+        title: "",
+        company: "",
+        location: "",
+        description: "",
+        employerEmail: "",
+        postDate: "",
     });
 
+
+    const id = useParams().id;
+    function getJob() {
+        axios.get("/api/jobs/jobDetail/" + id)
+        .then(response =>
+            setJobData(response.data))
+        .catch(error => console.log("error"))}
+
+    useEffect(getJob, [])
+
+
     const navigate = useNavigate();
-    function tryPostJob() {
-        axios.post('/api/jobs/add', jobData)
+    function editJob() {
+        axios.put('/api/jobs/edit/' + id)
             .then((jobResponse) => {
                 console.log(jobResponse);
-                console.log("Success!");
+                // console.log("Success!");
                 navigate('/userLogged');
             })
             .catch(error => console.log(error));
@@ -29,7 +43,6 @@ function PostJob(props) {
 
     return(
         <div className="page" align="right">
-            {/* <Nav type = "logged" info = {state}/> */}
             <div>
                 <Link to="/">
                     <button>Home</button>
@@ -125,7 +138,7 @@ function PostJob(props) {
             }}/>
             </div>
 
-            <button onClick={tryPostJob}>Post Job</button>
+            <button onClick={editJob}>Submit Edit</button>
            
         </div>
         </div>    
@@ -134,4 +147,4 @@ function PostJob(props) {
 
 }
 
-export default PostJob
+export default EditJob
