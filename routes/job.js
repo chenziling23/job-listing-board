@@ -112,10 +112,11 @@ router.post('/add', function(req, res) {
 
 //Edit jobs
 router.put('/edit/:jobId', function(req, res) {
-    console.log(req.params);
+    // console.log(req.params);
     return JobModel.updateJob(req.params.jobId, req.body)
             .then(response => {
                 console.log("backEnd update success");
+                return res.status(200).send("Ok");
             })
             .catch(e => console.log("update failed"));     
 });
@@ -127,6 +128,7 @@ router.delete('/delete/:jobId', function(req, res) {
     return JobModel.deleteOneJob(req.params.jobId)
         .then((response) => {
             console.log("delete successfully");
+            return res.status(200).send("Ok");
         })
         .catch(error => console.log("Unable delete"));
 });

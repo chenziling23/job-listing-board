@@ -22,10 +22,6 @@ function findJobByTitleAndCompany(title, company) {
     return JobModel.findOne({title: title, company: company}).exec();
 }
 
-// function findJobByCompany(company) {
-//     return JobModel.find({company: company}).exec();
-// }
-
 function findJobByLike(like) {
     return JobModel.find({like:like}).exec();
 }
@@ -36,10 +32,8 @@ function insertJob(job) {
 }
 
 //Update/Edit jobs
-function updateJob(jobId, newProps) {
-    // const foundPost = await PostPost.findByIdAndUpdate(_id, {...post, _id}, {new: true});
-    return JobModel.updateOne({_id: jobId}, newProps).exec();
-    // return JobModel.findByIdAndUpdate(job)
+function updateJob(jobId, data) {
+    return JobModel.updateOne({_id: jobId}, data).exec();
 }
 
 //Delete job

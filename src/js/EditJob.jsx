@@ -8,7 +8,7 @@ import { useEffect } from "react";
 
 function EditJob(props) {
 
-    const {title, company, location, description, employerEmail, postDate} = props;
+    // const {title, company, location, description, employerEmail, postDate} = props;
     const [jobData, setJobData] = useState({
         title: "",
         company: "",
@@ -29,13 +29,14 @@ function EditJob(props) {
     useEffect(getJob, [])
 
 
-    const navigate = useNavigate();
+    console.log(id);
+    const navigateLoggedPage = useNavigate();
     function editJob() {
-        axios.put('/api/jobs/edit/' + id)
+        axios.put(`/api/jobs/edit/${id}`, jobData)
             .then((jobResponse) => {
-                console.log(jobResponse);
-                // console.log("Success!");
-                navigate('/userLogged');
+                // console.log(jobResponse);
+                console.log("Success!");
+                navigateLoggedPage('/userLogged');
             })
             .catch(error => console.log(error));
     }
@@ -50,8 +51,9 @@ function EditJob(props) {
                 <Link to="/register">
                     <button>Register</button>
                 </Link>
-                <Link to="/favorite">
-                    <button>Favorite</button>
+                
+                <Link to="/myList">
+                    <button>My List</button>
                 </Link>
                 <button>username</button>
             </div>
@@ -67,6 +69,7 @@ function EditJob(props) {
             <div className = "input-box">
             <input type='text' value={jobData.title} onChange={(e) => {
                 const title = e.target.value;
+                console.log(title);
                 setJobData({
                     ...jobData,
                     title: title
@@ -144,7 +147,6 @@ function EditJob(props) {
         </div>    
      
     );
-
 }
 
 export default EditJob
