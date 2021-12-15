@@ -47,7 +47,17 @@ function HomePage() {
 
   return (
     <div className="home">
-      <Nav type = "HomePage"/>
+       <div>
+            <Link to="/login">
+                <button>Log In</button>
+            </Link>
+            <Link to="/register">
+                <button>Register</button>
+            </Link>
+            <Link to="/favorite">
+                <button>Favorite Page</button>
+            </Link>   
+            </div>
       <div className="container">
       <div className="header">
         JobFinder

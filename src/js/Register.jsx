@@ -3,6 +3,7 @@ import React, {useState} from 'react'
 import Nav from "./Nav";
 import "../css/LogIn.css";
 import { useNavigate } from 'react-router'; 
+import { Link } from 'react-router-dom';
 
 
 function Register(state) {
@@ -25,7 +26,14 @@ function Register(state) {
 
     return (
         <div className="page">
-        <Nav type = "register"/> 
+        <div>
+                <Link to="/">
+                <button>Home</button>
+                </Link>
+                <Link to="/login">
+                <button>Log In</button>
+                </Link>
+            </div>
 
         <div className = "contain">
             <div className="job-finder">
