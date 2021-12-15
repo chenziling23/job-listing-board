@@ -4,14 +4,13 @@ import axios from 'axios';
 import "../css/LoggedHome.css";
 import Nav from "./Nav";
 import { Link } from 'react-router-dom';
-import { useLocation } from 'react-router'; 
 import { useNavigate } from 'react-router';
 
 
 function LoggedHome() {
   const navigate = useNavigate();
   const [formInput, setFormInput] = useState('');
-  // const [job, setJob] = useState({title: 'No match job title', company: 'None'});
+
   const [job, setJob] = useState([]);
 
   function onSearchButtonClick() {
@@ -30,22 +29,7 @@ function LoggedHome() {
         .catch(() => navigate('/logIn'))
   }
 
-useEffect(checkLogin,[])
-
-//   const [userData, setUserData] = useState({
-//     password: '',
-//     username: '',
-//   });
-
-//   function tryLogin () {
-//     axios.post('/api/users/login', userData)
-//             .then((loginResponse) => {
-//                 console.log(loginResponse);
-//                 // navigate('/userLogged');
-//             })
-//             .catch(error => console.log(error));    
-// }
-
+  useEffect(checkLogin,[])
 
 
   const jobList = job.map(oneJob => {

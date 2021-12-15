@@ -1,0 +1,27 @@
+.joblst {
+    height: 300px;
+    width: 400px;
+    border: 4px;
+    align-items: center;
+    text-align: center;
+}
+
+.container {
+    background-color: white;
+    max-width: 500px;
+    max-height: 500px;
+    border: 1px solid rgb(89, 134, 22);
+    border-radius: 5px;
+    margin: 30px auto;
+    overflow: auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 200px auto;
+}
+
+#bnt1 {
+
+}

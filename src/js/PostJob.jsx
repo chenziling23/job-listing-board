@@ -1,8 +1,8 @@
 import React,{useState} from "react";
 import "../css/PostJob.css";
-import { Link } from 'react-router-dom';
 import axios from "axios";
 import { useNavigate } from 'react-router';
+import Nav from "./Nav";
 
 function PostJob(props) {
 
@@ -29,20 +29,8 @@ function PostJob(props) {
 
 
     return(
-        <div className="page" align="right">
-            {/* <Nav type = "logged" info = {state}/> */}
-            <div>
-                <Link to="/">
-                    <button>Home</button>
-                </Link>
-                <Link to="/register">
-                    <button>Register</button>
-                </Link>
-                <Link to="/favorite">
-                    <button>Favorite</button>
-                </Link>
-                <button>username</button>
-            </div>
+        <div className="page">
+            <Nav type = "postjob" />
 
         <div className = "contain">
             <div className="job-finder">

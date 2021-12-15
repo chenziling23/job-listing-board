@@ -1,14 +1,13 @@
 import React,{useState} from "react";
 import "../css/PostJob.css";
-import { Link } from 'react-router-dom';
 import axios from "axios";
 import { useNavigate } from 'react-router';
 import { useParams } from 'react-router'; 
 import { useEffect } from "react";
+import Nav from "./Nav";
 
 function EditJob(props) {
 
-    // const {title, company, location, description, employerEmail, postDate} = props;
     const [jobData, setJobData] = useState({
         title: "",
         company: "",
@@ -40,20 +39,9 @@ function EditJob(props) {
 
 
     return(
-        <div className="page" align="right">
-            <div>
-                <Link to="/">
-                    <button>Home</button>
-                </Link>
-                <Link to="/register">
-                    <button>Register</button>
-                </Link>
-                
-                <Link to="/myList">
-                    <button>My List</button>
-                </Link>
-                <button>username</button>
-            </div>
+        <div className="page">
+            <Nav type = "editjob" />
+     
 
         <div className = "contain">
             <div className="job-finder">
@@ -61,7 +49,7 @@ function EditJob(props) {
             </div>
 
             <div className = "username">
-                Title:
+                Title*:
             </div>
             <div className = "input-box">
             <input type='text' value={jobData.title} onChange={(e) => {
@@ -75,7 +63,7 @@ function EditJob(props) {
             </div>
 
             <div className = "username">
-                Company:
+                Company*:
             </div>
             <div className = "input-box">
             <input type='text' value={jobData.company} onChange={(e) => {
@@ -88,7 +76,7 @@ function EditJob(props) {
             </div>
 
             <div className = "username">
-                Location:
+                Location*:
             </div>
             <div className = "input-box">
             <input type='text' value={jobData.location} onChange={(e) => {
@@ -101,7 +89,7 @@ function EditJob(props) {
             </div>
 
             <div className = "username">
-                Description:
+                Description*:
             </div>
             <div className = "input-box">
             <input type='text' value={jobData.description} onChange={(e) => {
@@ -114,7 +102,7 @@ function EditJob(props) {
             </div>
 
             <div className = "username">
-                Employer Email:
+                Employer Email*:
             </div>
             <div className = "input-box">
             <input type='text' value={jobData.employerEmail} onChange={(e) => {
@@ -126,14 +114,14 @@ function EditJob(props) {
             }}/>
             </div>
             <div className = "username">
-                Post Date:
+                Company Website(Optional):
             </div>
             <div className = "input-box">
-            <input type='text' value={jobData.postDate} onChange={(e) => {
-                const postDate = e.target.value;
+            <input type='text' value={jobData.web} onChange={(e) => {
+                const web = e.target.value;
                 setJobData({
                     ...jobData,
-                    postDate: postDate
+                    web: web
                 })
             }}/>
             </div>
@@ -141,7 +129,8 @@ function EditJob(props) {
             <button onClick={editJob}>Submit Edit</button>
            
         </div>
-        </div>    
+        </div>  
+          
      
     );
 }

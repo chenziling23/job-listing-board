@@ -39,23 +39,6 @@ function JobDetail() {
     }
     useEffect(findJobDetails, []);
 
-
-    // const jobComponent = job ?
-    //     (<><div>
-    //         Job Title: {job.title}
-    //         </div>
-    //         <div>
-    //         Job Company: {job.company}
-    //         </div></>) :
-    //         (<div> No job found</div>);
-    // function checkWeb() {
-    //     console.log(job.web)
-    //     if (job.web !== null){
-    //         return (
-    //             <li>Web: {job.web}</li>
-    //         )
-    //     }
-    // }
     
     return (
         <div>

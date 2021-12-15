@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, {useState} from 'react'
 import Nav from "./Nav";
 import "../css/LogIn.css";
-import { useLocation, useNavigate } from 'react-router'; 
+import { useNavigate } from 'react-router'; 
 
 
 function Register(state) {
@@ -13,14 +13,6 @@ function Register(state) {
     });
     const [error, setError] = useState("");
 
-    // const [loggedInName, setLoggedInName] = useState('');
-
-   
-    // function displayUsername() {
-    //     axios.get("localhost:8000/api/jobs/get/whoIsLoggedIn")
-    //     .then(response => setLoggedInName(response))
-    //     .catch(error => console.log(error));
-    // }
     
     const navigate = useNavigate();
     function tryRegister () {

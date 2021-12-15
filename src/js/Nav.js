@@ -41,12 +41,64 @@ export default function Nav(props){
                 </Link>
             </div>
         )
+    }else if (props.type === "postjob") {
+        return(
+            <div class="postjob">
+                <div>
+                <Link to="/">
+                    <button>Home</button>
+                </Link>
+                <Link to="/register">
+                <button>Register</button>
+                </Link>
+                <Link to="/favorite">
+                <button>Favorite</button>
+                </Link>
+                <Link to="/myList">
+                <button>My List</button>
+                </Link>
+            </div>
+                <Dropdown>
+                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                    {name}
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                    <Dropdown.Item href="#/action-1">Setting</Dropdown.Item>
+                </Dropdown.Menu>
+                </Dropdown>
+            </div>
+        )
+    }else if (props.type === "editjob") {
+        return(
+            <div class="postjob">
+                <div>
+                <Link to="/">
+                    <button>Home</button>
+                </Link>
+                <Link to="/register">
+                <button>Register</button>
+                </Link>
+                <Link to="/favorite">
+                <button>Favorite</button>
+                </Link>
+                <Link to="/myList">
+                <button>My List</button>
+                </Link>
+                <Link to="/postJob">
+                <button>Post Job</button>
+                </Link>
+            </div>
+                <Dropdown>
+                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                    {name}
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                    <Dropdown.Item href="#/action-1">Setting</Dropdown.Item>
+                </Dropdown.Menu>
+                </Dropdown>
+            </div>
+        )
     }else if(props.type === "logged") {
-        // return(
-        //     <>
-        //     <Try></Try>
-        //     </>
-        // )
         return (
             <div class = "logged">
                 <div>
@@ -73,12 +125,10 @@ export default function Nav(props){
                     <button>My List</button>
                     </Link>
                 </div>
-                {/* <div>
-                <button id = "user">{name}</button>
-                </div> */}
+                
                 <Dropdown>
                 <Dropdown.Toggle variant="success" id="dropdown-basic">
-                    Dropdown Button
+                    {name}
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                     <Dropdown.Item href="#/action-1">Setting</Dropdown.Item>

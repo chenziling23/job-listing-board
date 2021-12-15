@@ -9,7 +9,6 @@ import {useNavigate} from 'react-router';
 
 function HomePage() {
   const [formInput, setFormInput] = useState('');
-  // const [job, setJob] = useState({title: 'No match job title', company: 'None'});
   const [job, setJob] = useState([]);
 
   function onSearchButtonClick() {
@@ -45,11 +44,6 @@ function HomePage() {
         </div>)
     }
 })
-
-  // console.log("job: ");
-  // console.log(job);
-  // console.log("jobs: ");
-  // console.log(jobs);
 
   return (
     <div className="home">

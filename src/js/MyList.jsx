@@ -1,35 +1,17 @@
 import React, {useState, useEffect} from "react";
-import { useParams } from 'react-router'; 
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import {useNavigate} from 'react-router';
+
 
 export default function MyList(props) {
 
 
     // const jobTitle = useParams().job;
     const [job, setJob] = useState([]);
-    const [jobNum, setJobNum] = useState(0)
-    const [jobData, setJobData] = useState({
-        title: '',
-        company: '',
-        location: '',
-        description: '',
-        employerEmail: '',
-        postDate: '',
-    });
-
-
 
     const navigate = useNavigate();
     function tryEdit (id) {
-        // axios.put("/api/jobs/edit/" + id)
-        //     .then(response => {
-        //         navigate('/EditJob');
-        //     })
-        //     .catch(error => console.log(error));
-
-        
         navigate("/editJob/" + id);
     }
 
@@ -38,17 +20,25 @@ export default function MyList(props) {
     function tryDelete (id) {
         axios.delete("/api/jobs/delete/" + id)
             .then(response => {
-                // console.log(id);
-                // console.log("success");
-                
                 navigateBack("/userLogged");
                 window.location.reload();
-                // let curJobNum = jobNum;
-                // setJobNum(curJobNum - 1);
-                // setJobData(response.data);
             })
             .catch(error => console.log(error));
     }
+
+    const [list, setList] = useState("");
+    function findLogInUserAndSetJobList () {
+        axios.get("/api/users/whoIsLoggedIn")
+            .then(userResponse => {
+                // console.log(response);
+                axios.get("/api/users/need/" + userResponse.data)
+                    .then((listResponse) => setList(listResponse.data.postedJob))
+                    .catch(error => console.log(error))
+            })
+            .catch(() => navigate('/logIn'))
+    }
+    useEffect(findLogInUserAndSetJobList, []);
+
 
     function displayMyList () {
         axios.get('/api/jobs/findAll')
@@ -59,10 +49,12 @@ export default function MyList(props) {
 
     const jobList = job.map(oneJob => {
         return (
+            
                 <div id = "joblst">
                 <button onClick={() => {tryEdit(oneJob._id)}}>Edit</button>
                 <button onClick={() => {tryDelete(oneJob._id)}}>Delete</button>
                 <Link to={"/jobDetail/"+oneJob._id}>
+                
                 <div>
                   <p key="uniqueId1">Job Title: {oneJob.title}</p>
                   <p key="uniqueId2">Company: {oneJob.company}</p>
@@ -74,7 +66,7 @@ export default function MyList(props) {
       })
 
     
-    useEffect(displayMyList, [jobNum]);
+    useEffect(displayMyList, []);
     
     return (
         <div> 

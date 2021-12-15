@@ -13,6 +13,9 @@ exports.UserSchema = new Schema(
         favorites: {
             type: Array,
             default: [],
+        },
+        postedJob: {
+            type: Array,
         }
     },
     {
