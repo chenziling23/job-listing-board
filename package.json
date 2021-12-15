@@ -1,6 +1,6 @@
 {
   "name": "job-listing",
-  "proxy": "http://localhost:8000",
+  "proxy": null,
   "version": "0.1.0",
   "dependencies": {
     "@testing-library/jest-dom": "^5.15.1",
