@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import Nav from './Nav';
 import "../css/LogIn.css";
 import { useNavigate } from 'react-router'; 
+import { Link } from 'react-router-dom';
 // import { useHistory } from "react-router-dom";
 
 
@@ -29,7 +30,14 @@ function LogIn(props) {
 
     return (
         <div className="page">
-        <Nav type = "login"/>
+        <div>
+                <Link to="/">
+                <button>Home</button>
+                </Link>
+                <Link to="/register">
+                <button>Register</button>
+                </Link>
+            </div>
         <div className = "contain">
             <div className="job-finder">
                 JobFinder

@@ -16,32 +16,7 @@ export default function Nav(props){
 
     useEffect(checkLogin,[]);
     const navigate = useNavigate();
-    if (props.type === "HomePage") {
-        return(
-            <div>
-            <Link to="/login">
-                <button>Log In</button>
-            </Link>
-            <Link to="/register">
-                <button>Register</button>
-            </Link>
-            <Link to="/favorite">
-                <button>Favorite Page</button>
-            </Link>   
-            </div>
-        )
-    }else if (props.type === "login") {
-        return(
-            <div>
-                <Link to="/">
-                <button>Home</button>
-                </Link>
-                <Link to="/register">
-                <button>Register</button>
-                </Link>
-            </div>
-        )
-    }else if (props.type === "postjob") {
+    if (props.type === "postjob") {
         return(
             <div class="postjob">
                 <div>
@@ -102,9 +77,6 @@ export default function Nav(props){
         return (
             <div class = "logged">
                 <div>
-                    <Link to="/">
-                        <button>Home</button>
-                    </Link>
                     <button onClick={
                         () => axios.post('/api/users/logout')
                         .then(() => {
@@ -136,14 +108,5 @@ export default function Nav(props){
                 </Dropdown>
                 </div>
         )
-    }else if (props.type === "register"){
-        return(<div>
-                <Link to="/">
-                <button>Home</button>
-                </Link>
-                <Link to="/login">
-                <button>Log In</button>
-                </Link>
-            </div>)
     }
 }
