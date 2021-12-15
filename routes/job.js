@@ -78,6 +78,22 @@ router.get('/:keyword', function(req, res) {
         .catch(error => res.status(500).send("Issue getting jobs"));
 })
 
+router.get('/aJob/:postUser', function(req, res) {
+    const postUser = req.params.postUser;
+    if(!postUser) {
+        return res.status(422).send("Please insert user");
+    }
+
+    return JobModel.findByPostUser(postUser)
+        .then(jobRes => {
+            if(!jobRes) {
+                return res.status(404).send("No job found");
+            }
+            return res.status(200).send(jobRes);
+        })
+        .catch(error => res.status(500).send("Issue getting jobs"));
+})
+
 // router.get("/find/favoriteLst", function(req,res) {
 //     return JobModel.findJobByLike(true)
 //         .then((jobResponse) => {
@@ -91,7 +107,7 @@ router.get('/:keyword', function(req, res) {
 
 //Add jobs
 router.post('/add', function(req, res) {
-    let {title, company, location, description, employerEmail, web} = req.body;
+    let {title, company, location, description, employerEmail, web, postUser} = req.body;
     employerEmail = JSON.stringify(employerEmail);
     if(!title || !company || !location || !description || !employerEmail) {
         return res.status(422).send("All * fields are required");
@@ -102,13 +118,13 @@ router.post('/add', function(req, res) {
     //     return res.status(422).send("Duplicate!");
     // }
     if (web != null){
-        return JobModel.insertJob({title, company, location, description, employerEmail, web})
+        return JobModel.insertJob({title, company, location, description, employerEmail, web, postUser})
         .then((jobResponse) => {
             return res.status(200).send(jobResponse);
         })
         .catch(error => res.status(400).send(error));
     }else{
-        return JobModel.insertJob({title, company, location, description, employerEmail})
+        return JobModel.insertJob({title, company, location, description, employerEmail, postUser})
         .then((jobResponse) => {
             return res.status(200).send(jobResponse);
         })

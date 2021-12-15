@@ -26,6 +26,10 @@ function findJobByLike(like) {
     return JobModel.find({like:like}).exec();
 }
 
+function findByPostUser(postUser) {
+    return JobModel.find({postUser: postUser}).exec();
+}
+
 //Add job item
 function insertJob(job) {
     return JobModel.create(job);
@@ -50,4 +54,5 @@ module.exports = {
     deleteOneJob,
     findJobByLike,
     findJobByTitleAndCompany,
+    findByPostUser,
 };

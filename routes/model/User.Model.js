@@ -24,9 +24,14 @@ function deleteFavoriteJobOfUser(username, jobId) {
     return UserModel.findOneAndUpdate({username: username}, {$pull: {favorites: jobId}});
 }
 
+// function insertMyList(username) {
+//     return UserModel.findOneAndUpdate({username: username}, {$addToSet: {favorites: jobId}});
+// }
+
 module.exports = {
     insertUser,
     findUserByUsername,
     insertFavoriteJobOfUser,
-    deleteFavoriteJobOfUser
+    deleteFavoriteJobOfUser,
+    // insertMyList
 };

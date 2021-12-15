@@ -15,7 +15,6 @@ export default function MyList(props) {
         navigate("/editJob/" + id);
     }
 
-
     const navigateBack = useNavigate();
     function tryDelete (id) {
         axios.delete("/api/jobs/delete/" + id)
@@ -26,13 +25,13 @@ export default function MyList(props) {
             .catch(error => console.log(error));
     }
 
-    const [list, setList] = useState("");
+    // const [list, setList] = useState("");
     function findLogInUserAndSetJobList () {
         axios.get("/api/users/whoIsLoggedIn")
             .then(userResponse => {
                 // console.log(response);
-                axios.get("/api/users/need/" + userResponse.data)
-                    .then((listResponse) => setList(listResponse.data.postedJob))
+                axios.get("/api/jobs/aJob/" + userResponse.data)
+                    .then((listResponse) => setJob(listResponse.data))
                     .catch(error => console.log(error))
             })
             .catch(() => navigate('/logIn'))
@@ -40,12 +39,12 @@ export default function MyList(props) {
     useEffect(findLogInUserAndSetJobList, []);
 
 
-    function displayMyList () {
-        axios.get('/api/jobs/findAll')
-            .then(response => setJob(response.data))
+    // function displayMyList () {
+    //     axios.get('/api/jobs/findAll')
+    //         .then(response => setJob(response.data))
 
-            .catch(error => console.log("Could not find the job"));
-    }
+    //         .catch(error => console.log("Could not find the job"));
+    // }
 
     const jobList = job.map(oneJob => {
         return (
@@ -65,8 +64,7 @@ export default function MyList(props) {
                 </div>)
       })
 
-    
-    useEffect(displayMyList, []);
+
     
     return (
         <div> 

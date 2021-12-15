@@ -14,9 +14,9 @@ exports.UserSchema = new Schema(
             type: Array,
             default: [],
         },
-        postedJob: {
-            type: Array,
-        }
+        // list: {
+        //     type: Array,
+        // }
     },
     {
         collection: 'users'

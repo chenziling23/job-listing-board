@@ -107,6 +107,19 @@ router.put("/removeFavLst/:username/:id",function(req,res) {
     .catch(error => res.status(400).send(error))
 })
 
+// router.post("/addToMyList/:username/:id", function(req, res) {
+//     const id = req.params.id;
+//     const username = req.params.username;
+//     return UserModel.insertMyList(username, id)
+//         .then((userResponse) => {
+//             if(!userResponse) {
+//                 return res.status(405).send("No user found with that name");
+//             }
+//             return res.status(200).send("successflly add to my list");
+//         })
+//         .catch(error => res.status(400).send(error))
+// })
+
 
 //Logout user
 router.post('/logout', function(req, res) {

@@ -1,11 +1,10 @@
-import React,{useState} from "react";
+import React,{useState, useEffect} from "react";
 import "../css/PostJob.css";
 import axios from "axios";
 import { useNavigate } from 'react-router';
 import Nav from "./Nav";
 
 function PostJob(props) {
-
     const [jobData, setJobData] = useState({
         title: '',
         company: '',
@@ -13,20 +12,39 @@ function PostJob(props) {
         description: '',
         employerEmail: '',
         web: '',
+        postUser: '',
     });
     const [error, setError] = useState("");
 
     const navigate = useNavigate();
+    const navigateLogin = useNavigate();
     function tryPostJob() {
         axios.post('/api/jobs/add', jobData)
             .then((jobResponse) => {
-                console.log(jobResponse);
-                console.log("Success!");
+                // console.log(jobResponse);
+                // console.log("Success!");
                 navigate('/jobDetail/'+jobResponse.data._id);
             })
             .catch(e => setError(e.response.data));
     }
 
+    
+    // const [myList, setMyList] = useState([]);
+    function addToMyList() {
+        axios.get("/api/users/whoIsLoggedIn")
+            .then((userRes) => {
+                const username = userRes.data;
+                setJobData({
+                    ...jobData,
+                    postUser: username
+                })
+                // axios.get('/api/jobs/aJob/' + userRes.data)
+                //     .then((jResponse) => setMyList(jResponse.data))
+                //     .catch(error => console.log(error));
+            })
+            .catch(() => navigateLogin('/logIn'));
+    }
+    useEffect(addToMyList, []);
 
     return(
         <div className="page">
@@ -116,10 +134,8 @@ function PostJob(props) {
             </div>
 
             <button onClick={tryPostJob}>Post Job</button>
-           
         </div>
-        </div>    
-     
+        </div> 
     );
 
 }

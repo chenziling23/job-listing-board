@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router';
 
 
-export default function Favorite(){
+export default function Favorite(props){
     const navigate = useNavigate();
     const [fav, setFav] = useState([])
     const [job, setJob] = useState({})
@@ -20,7 +20,10 @@ export default function Favorite(){
         axios.get('/api/users/whoIsLoggedIn')
             .then((response) => {
                 axios.get("/api/users/need/"+response.data)
-                .then((favResponse) => setFav(favResponse.data.favorites))
+                .then((favResponse) => {
+                    setFav(favResponse.data.favorites)
+                    console.log(fav);
+                })
                 .catch(error => console.log(error))
             })
             .catch(() => navigate('/logIn'))
@@ -53,11 +56,11 @@ export default function Favorite(){
     
 
     const result = fav.map(one => {
-        axios.get("api/jobs/jobDetail/"+one)
+        axios.get("/api/jobs/jobDetail/"+one)
             .then((response)=> {
-                    return (<div >
+                    return (<div>
                     <Link to={"/jobDetail/"+response.data._id}>
-                    <div >
+                    <div>
                     <p>Job Title: {response.data.title}</p>
                     <p>Company: {response.data.company}</p>
                     <p>Location: {response.data.location}</p>

@@ -26,11 +26,15 @@ exports.JobSchema = new Schema(
         },
         web:{
             type: String,
-        }
+        },
         // like: {
         //     type:Boolean,
         //     default:false,
         // }
+
+        postUser: {
+            type: String,
+        }
     }, {
         collection: 'jobs'
     }
