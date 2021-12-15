@@ -1,6 +1,6 @@
 {
   "name": "job-listing",
-  "version": "0.1.0",
+  "proxy": null,
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.15.1",
