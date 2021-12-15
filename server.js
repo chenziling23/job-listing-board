@@ -11,7 +11,7 @@ const session = require('express-session')
 const MongoStore = require('connect-mongo');
 
 
-const mongoString = "mongodb://localhost:27017/job";
+const mongoString = "mongodb+srv://ziling:1234@cluster0.hgsqy.mongodb.net/CS5610_Job?retryWrites=true&w=majority";
 
 mongoose.connect(mongoString, { useNewUrlParser: true });
 
