@@ -34,11 +34,6 @@ router.post('/register', function(req, res) {
     if(!username || !password || !verifyPassword) {
         return res.status(422).send("Missing username or password");
     }
-
-    if(UserModel.findUserByUsername(username)) {
-        res.status(422).send("The username is registered already. Please pick another one");
-        console.log("Registered, pick another");
-    }
     
     if(password !== verifyPassword) {
         res.status(422).send("Password verification does not match");
