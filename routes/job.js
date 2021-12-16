@@ -72,11 +72,10 @@ router.post('/add', function(req, res) {
     if(!title || !company || !location || !description || !employerEmail) {
         return res.status(422).send("All * fields are required");
     }
-
     
-    if(JobModel.findJobByTitleAndCompany(req.body.title, req.body.company)) {
-        return res.status(422).send("Duplicate! Please post another job");
-    }
+    // if(JobModel.findJobByTitleAndCompany(req.body.title, req.body.company)) {
+    //     return res.status(422).send("Duplicate! Please post another job");
+    // }
 
     if (web != null){
         return JobModel.insertJob({title, company, location, description, employerEmail, web, postUser})
