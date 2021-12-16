@@ -10,16 +10,15 @@ import {useNavigate} from 'react-router';
 function HomePage() {
   const [formInput, setFormInput] = useState('');
   const [job, setJob] = useState([]);
+  const [error, setError] = useState('');
 
   function onSearchButtonClick() {
     axios.get("/api/jobs/" + formInput)
+      // .then(response => console.log(response))
       .then(response => {
-        console.log(response);
-        setJob(response.data)})
-      .catch(error => setJob({
-        title: "No job found",
-        company: "No company found", 
-      }));
+        setJob(response.data)
+        setError("")})
+      .catch(e => setError(e.response.data));
   }
 
   
@@ -70,6 +69,7 @@ function HomePage() {
         </button>
         <div>
            {jobs}
+           <p>{error}</p>
         </div>
 
         </div>

@@ -41,7 +41,7 @@ router.get('/:keyword', function(req, res) {
 
     return JobModel.findJobByKeyword(keyword)
         .then((jobResponse) => {
-            if (!jobResponse){
+            if (jobResponse.length === 0){
                 return res.status(404).send("Not found related jobs");
             }
             return res.status(200).send(jobResponse);

@@ -3,7 +3,7 @@ import React, { useState,useEffect } from 'react';
 import { useParams } from 'react-router'; 
 import Heart from "react-heart";
 import { useNavigate } from 'react-router';
-import Nav from "./Nav";
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 
 
@@ -37,7 +37,28 @@ function JobDetail() {
     
     return (
         <div>
-            <Nav type = "logged" info = {name}></Nav>
+            <div>
+                    <button onClick={
+                        () => axios.post('/api/users/logout')
+                        .then(() => {
+                            navigate('/');
+                        })
+                        .catch(console.error)
+                    }>Logout</button>
+                    <Link to="/register">
+                        <button>Register</button>
+                    </Link>
+                    <Link to="/favorite">
+                    <button>Favorite</button>
+                    </Link>
+                    <Link to="/postJob">
+                    <button>Post Job</button>
+                    </Link>
+                    <Link to="/myList">
+                    <button>My List</button>
+                    </Link>
+                </div>
+                
             <ul>
                 <li>Job title: {job.title}</li>
                 <li>Company name: {job.company}</li>
