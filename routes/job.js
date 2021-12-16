@@ -7,34 +7,6 @@ const { UserSchema } = require('./schema/User.Schema');
 const { default: axios } = require('axios');
 const { route } = require('./user');
 
-// router.put('/putlike/:id', function(req,res) {
-//     const id = req.params.id;
-//     JobModel.findJobById(id)
-//         .then((jobResponse)=>{
-//             console.log(jobResponse.like)
-//             if (!jobResponse.like){
-//                 //return JobModel.updateJob(id,{$set:{like:true}})
-//                 return JobModel.updateJob(id,{like:true})
-//                     .then((jobResponse) => {
-//                         if (!jobResponse){
-//                             return res.status(404).send("Not found related jobs");
-//                         }
-//                         return res.status(200).send("putted yes")
-//                     })
-//                     .catch(error => res.status(400).send(error))
-//             }else{
-//                 return JobModel.updateJob(id,{like:false})
-//                     .then((jobResponse) => {
-//                         if (!jobResponse){
-//                             return res.status(404).send("Not found related jobs");
-//                         }
-//                         return res.status(200).send("putted no")
-//                     })
-//                     .catch(error => res.status(400).send(error))
-//             }
-//         })
-//         .catch(error => res.status(400).send(error))
-// })
 
 //Find all of the jobs
 router.get('/findAll', function(req, res) {
@@ -63,7 +35,6 @@ router.get('/jobDetail/:id', function(req, res) {
 //Find job by title
 router.get('/:keyword', function(req, res) {
     const keyword = req.params.keyword;
-    // console.log(keyword);
     if (! keyword) {
         return res.status(422).send("Please type keyword");
     }
@@ -94,17 +65,6 @@ router.get('/aJob/:postUser', function(req, res) {
         .catch(error => res.status(500).send("Issue getting jobs"));
 })
 
-// router.get("/find/favoriteLst", function(req,res) {
-//     return JobModel.findJobByLike(true)
-//         .then((jobResponse) => {
-//             if (!jobResponse){
-//                 return res.status(404).send("Not found related jobs");
-//             }
-//             return res.status(200).send(jobResponse);
-//         })
-//         .catch(error => res.status(500).send("Issue getting jobs"));
-// })
-
 //Add jobs
 router.post('/add', function(req, res) {
     let {title, company, location, description, employerEmail, web, postUser} = req.body;
@@ -114,9 +74,10 @@ router.post('/add', function(req, res) {
     }
 
     
-    // if(JobModel.findJobByTitleAndCompany(req.body.title, req.body.company)) {
-    //     return res.status(422).send("Duplicate!");
-    // }
+    if(JobModel.findJobByTitleAndCompany(req.body.title, req.body.company)) {
+        return res.status(422).send("Duplicate! Please post another job");
+    }
+
     if (web != null){
         return JobModel.insertJob({title, company, location, description, employerEmail, web, postUser})
         .then((jobResponse) => {

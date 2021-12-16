@@ -15,7 +15,6 @@ function LoggedHome() {
 
   function onSearchButtonClick() {
     axios.get("/api/jobs/" + formInput)
-      // .then(response => console.log(response))
       .then(response => {setJob(response.data)})
       .catch(error => setJob({
         title: "No job found",

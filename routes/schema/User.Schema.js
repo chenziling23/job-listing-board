@@ -14,9 +14,7 @@ exports.UserSchema = new Schema(
             type: Array,
             default: [],
         },
-        // list: {
-        //     type: Array,
-        // }
+        
     },
     {
         collection: 'users'

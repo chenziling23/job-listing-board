@@ -7,7 +7,6 @@ import {useNavigate} from 'react-router';
 export default function MyList(props) {
 
 
-    // const jobTitle = useParams().job;
     const [job, setJob] = useState([]);
 
     const navigate = useNavigate();
@@ -25,11 +24,9 @@ export default function MyList(props) {
             .catch(error => console.log(error));
     }
 
-    // const [list, setList] = useState("");
     function findLogInUserAndSetJobList () {
         axios.get("/api/users/whoIsLoggedIn")
             .then(userResponse => {
-                // console.log(response);
                 axios.get("/api/jobs/aJob/" + userResponse.data)
                     .then((listResponse) => setJob(listResponse.data))
                     .catch(error => console.log(error))
@@ -38,13 +35,6 @@ export default function MyList(props) {
     }
     useEffect(findLogInUserAndSetJobList, []);
 
-
-    // function displayMyList () {
-    //     axios.get('/api/jobs/findAll')
-    //         .then(response => setJob(response.data))
-
-    //         .catch(error => console.log("Could not find the job"));
-    // }
 
     const jobList = job.map(oneJob => {
         return (
@@ -64,8 +54,6 @@ export default function MyList(props) {
                 </div>)
       })
 
-
-    
     return (
         <div> 
             <div>

@@ -8,12 +8,6 @@ import { useNavigate } from 'react-router';
 export default function Favorite(props){
     const navigate = useNavigate();
     const [fav, setFav] = useState([])
-    const [job, setJob] = useState({})
-    // function getFavorite () {
-    //     axios.get('/api/jobs/find/favoriteLst')
-    //             .then((registerResponse) => setFav(registerResponse.data))
-    //             .catch(error => console.log(error));    
-    // }
 
 
     function checkLogin() {
@@ -31,28 +25,6 @@ export default function Favorite(props){
 
     useEffect(checkLogin,[]);
 
-    // function findJob(id) {
-    //     axios.get("api/jobs/jobDetail/"+id)
-    //     .then((response)=> setJob(response.data))
-    //     .catch(error => console.log(error))
-    // }
-
-    // const result = [];
-    // for(let one of fav) {
-    //     result.push(axios.get("api/jobs/jobDetail/"+one)
-    //     .then((response)=> {
-    //         setJob(response.data)
-    //             return (<div >
-    //                 <Link to={"/jobDetail/"+job._id}>
-    //                 <div >
-    //                 <p>Job Title: {job.title}</p>
-    //                 <p>Company: {job.company}</p>
-    //                 <p>Location: {job.location}</p>
-    //                 </div>
-    //                 </Link>
-    //                 <br/>
-    //             </div>)}))
-    // }
     
 
     const result = fav.map(one => {

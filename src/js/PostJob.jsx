@@ -21,15 +21,12 @@ function PostJob(props) {
     function tryPostJob() {
         axios.post('/api/jobs/add', jobData)
             .then((jobResponse) => {
-                // console.log(jobResponse);
-                // console.log("Success!");
                 navigate('/jobDetail/'+jobResponse.data._id);
             })
             .catch(e => setError(e.response.data));
     }
 
     
-    // const [myList, setMyList] = useState([]);
     function addToMyList() {
         axios.get("/api/users/whoIsLoggedIn")
             .then((userRes) => {
@@ -38,9 +35,6 @@ function PostJob(props) {
                     ...jobData,
                     postUser: username
                 })
-                // axios.get('/api/jobs/aJob/' + userRes.data)
-                //     .then((jResponse) => setMyList(jResponse.data))
-                //     .catch(error => console.log(error));
             })
             .catch(() => navigateLogin('/logIn'));
     }

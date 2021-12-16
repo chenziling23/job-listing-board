@@ -13,7 +13,6 @@ function HomePage() {
 
   function onSearchButtonClick() {
     axios.get("/api/jobs/" + formInput)
-      // .then(response => console.log(response))
       .then(response => {
         console.log(response);
         setJob(response.data)})

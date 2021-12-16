@@ -24,7 +24,6 @@ router.get('/need/:username', function(req, res) {
 
 //Find who is logged in
 router.get('/whoIsLoggedIn', auth_middleware, function(request, response) {
-    // console.log(request.session.username);
     const username = request.session.username;
     return response.send(username);
 });
@@ -36,10 +35,10 @@ router.post('/register', function(req, res) {
         return res.status(422).send("Missing username or password");
     }
 
-    // if(UserModel.findUserByUsername(username)) {
-    //     res.status(422).send("The username is registered already. Please pick another one");
-    //     console.log("Registered, pick another");
-    // }
+    if(UserModel.findUserByUsername(username)) {
+        res.status(422).send("The username is registered already. Please pick another one");
+        console.log("Registered, pick another");
+    }
     
     if(password !== verifyPassword) {
         res.status(422).send("Password verification does not match");
@@ -107,33 +106,12 @@ router.put("/removeFavLst/:username/:id",function(req,res) {
     .catch(error => res.status(400).send(error))
 })
 
-// router.post("/addToMyList/:username/:id", function(req, res) {
-//     const id = req.params.id;
-//     const username = req.params.username;
-//     return UserModel.insertMyList(username, id)
-//         .then((userResponse) => {
-//             if(!userResponse) {
-//                 return res.status(405).send("No user found with that name");
-//             }
-//             return res.status(200).send("successflly add to my list");
-//         })
-//         .catch(error => res.status(400).send(error))
-// })
-
-
 //Logout user
 router.post('/logout', function(req, res) {
     req.session.destroy()
     console.log("hiiii");
     return res.send("Logged out");
 })
-
-//Disable cookie after log out
-// router.post("/logout&", function(req, res) {
-//     req.session.destroy;
-//     res.send("Logged out");
-
-// });
 
 
 module.exports = router

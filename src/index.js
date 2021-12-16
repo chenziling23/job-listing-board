@@ -31,10 +31,6 @@ ReactDOM.render(
     </Routes>
   </Router>
 
-
-  // <React.StrictMode>
-  //   <HomePage />
-  // </React.StrictMode>
   ,
   document.getElementById('root')
 );

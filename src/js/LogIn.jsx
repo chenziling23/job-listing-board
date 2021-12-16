@@ -4,7 +4,6 @@ import Nav from './Nav';
 import "../css/LogIn.css";
 import { useNavigate } from 'react-router'; 
 import { Link } from 'react-router-dom';
-// import { useHistory } from "react-router-dom";
 
 
 function LogIn(props) {
@@ -17,11 +16,9 @@ function LogIn(props) {
 
    
     const navigate = useNavigate();
-    // const history = useHistory();
     function tryLogin () {
         axios.post('/api/users/login', userData)
                 .then((loginResponse) => {
-                    // history.goBack();
                     navigate('/userLogged', {state: loginResponse.data.username});
                 })
                 .catch(e => setError(e.response.data));    

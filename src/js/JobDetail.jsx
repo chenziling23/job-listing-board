@@ -19,11 +19,6 @@ function JobDetail() {
             .then(response => {setJob(response.data)})
             .catch(error => console.log(error));
     }
-    // function needlike() {
-    //     axios.put("/api/jobs/putlike/"+jobTitle)
-    //             .then(response => console.log("hiii"))
-    //             .catch(error => console.log(error))
-    // }
 
 
     function checkLogin() {
